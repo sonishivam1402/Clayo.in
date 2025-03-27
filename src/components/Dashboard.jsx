@@ -1,10 +1,10 @@
 import React from 'react'
 import { useContext } from 'react'
-import UserContext from '../context/UserContext'
+import GlobalContext from '../context/GlobalContext'
 
 export const Dashboard = () => {
 
-    const {user} = useContext(UserContext);
+    const {user} = useContext(GlobalContext);
 
     if (!user) return <h2>Please Login!!</h2>
     

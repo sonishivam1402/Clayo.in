@@ -20,12 +20,13 @@ export const ProductComponent = (props) => {
 
                 <div className="w-full flex justify-between items-center">
                     <span className='font-medium'>Price : ${props.price || 20} </span>
-                    <FaShoppingCart className="scale-150 hover:scale-180" />
+                    
+                    <FaShoppingCart className="scale-150 hover:scale-180" onClick={props.cart}/>
                 </div>
 
                 <div className="flex items-center gap-6 mt-2">
                     <button
-                        className="p-2! hover:bg-gray-200!"
+                        className="p-2! hover:bg-gray-200! hover:text-black!"
                         onClick={props.subQuan}
                         disabled={props.neqQuan === 0}
                     >
@@ -33,7 +34,7 @@ export const ProductComponent = (props) => {
                     </button>
                     <span>{props.quan}</span>
                     <button
-                        className="p-2! hover:bg-gray-200!"
+                        className="p-2! hover:bg-gray-200! hover:text-black!"
                         onClick={props.addQuan}
                     >
                         +

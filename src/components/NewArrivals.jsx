@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { ProductComponent } from "./ui/ProductCardComponent";
+import GlobalContext from "../context/GlobalContext";
 
 export const NewArrivals = () => {
 
     const [products, setProducts] = useState([]);
     const [quantities, setQuantities] = useState({});
+    const [tempCart, setTempCart] = useState([]);
+    const {cartItem, setCartItem} = useContext(GlobalContext);
 
     useEffect(() => {
         const loadProducts = async () => {
@@ -41,19 +44,43 @@ export const NewArrivals = () => {
         }));
     };
 
+    const addToCart = (quantity, title) => {
+        alert(quantity + " " + title + " added to cart !!")
+        const newItem = {"title" : title, "Qty" : quantity}
+        setTempCart(prevData => [...prevData , newItem]);
+        const final = tempCart.reduce((acc,item)=>{
+            if(acc[item.title]){
+                acc[item.title]=item
+            }else{
+                acc[item.title]=item
+            }   
+            
+            return acc;
+            
+            },{});
+            console.log("final cart",final)
+
+            setCartItem(final)
+    }
+
+    useEffect(()=>{
+        console.log("cart item : ",cartItem);
+        
+        
+    },[cartItem])
+
     return (
         <div className="p-6 w-screen h-auto text-left">
             <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
             <div className="my-5.5 flex gap-2">
                 {products.length > 0 ? (
                     products.slice(1, 5).map((p, i) => (
-                        <ProductComponent  imgsrc={p.image} imgalt={i} title={p.title} rating={p.rating.rate} quan={quantities[p.id]} subQuan={()=>{updateQuantity(p.id, -1)}} addQuan={()=>{updateQuantity(p.id, 1)}} neqQuan={quantities[p.id]}/>
+                        <ProductComponent key={i} imgsrc={p.image} imgalt={i} title={p.title} rating={p.rating.rate} quan={quantities[p.id]} cart={()=>{addToCart(quantities[p.id], p.title)}} subQuan={()=>{updateQuantity(p.id, -1)}} addQuan={()=>{updateQuantity(p.id, 1)}} neqQuan={quantities[p.id]}/>
                     ))
                 ) : (
                     <p>Loading products...</p>
                 )}
             </div>
-            {/* <img src="banner.png" className="w-full h-160"/> */}
         </div>
     );
 };
