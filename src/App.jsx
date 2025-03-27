@@ -7,17 +7,15 @@ import { NavBar } from './components/NavBar'
 import { Hero } from './components/Hero'
 import { NewArrivals } from './components/NewArrivals'
 import { GridBanner } from './components/GridBanner'
-import { CardComponent } from './components/ui/cardComponent'
+import { ProductComponent } from './components/ui/ProductCardComponent'
 
 function App() {
   return (
     <UserContextProvider>
-      {/* <NavBar/>
+      <NavBar/>
       <Hero/>
       <NewArrivals/>
-      <GridBanner/>
-      <Login/> */}
-      <CardComponent/>
+      <ProductComponent/>
     </UserContextProvider>
   )
 }

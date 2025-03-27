@@ -1,9 +1,10 @@
 import React from 'react'
+import { ProductComponent } from './ui/ProductCardComponent'
 
 export const GridBanner = () => {
   return (
     <div>
-        hello
+        <ProductComponent imgsrc="banner.png"/>
     </div>
   )
 }
