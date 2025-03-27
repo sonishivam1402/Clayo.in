@@ -44,15 +44,21 @@ export const NewArrivals = () => {
         }));
     };
 
-    const addToCart = (quantity, title) => {
-        alert(quantity + " " + title + " added to cart !!")
-        const newItem = {"title" : title, "Qty" : quantity}
+    const addToCart = (quantity, product) => {
+        alert(quantity + " " + product.title + " added to cart !!")
+        const newItem = {"Product" : product, "Qty" : quantity}
         setTempCart(prevData => [...prevData , newItem]);
+        
+    }
+
+    useEffect(()=>{
+        console.log("cart item : ",cartItem);
+        
         const final = tempCart.reduce((acc,item)=>{
-            if(acc[item.title]){
-                acc[item.title]=item
+            if(acc[item.Product.title]){
+                acc[item.Product.title]=item
             }else{
-                acc[item.title]=item
+                acc[item.Product.title]=item
             }   
             
             return acc;
@@ -61,13 +67,7 @@ export const NewArrivals = () => {
             console.log("final cart",final)
 
             setCartItem(final)
-    }
-
-    useEffect(()=>{
-        console.log("cart item : ",cartItem);
-        
-        
-    },[cartItem])
+    },[tempCart])
 
     return (
         <div className="p-6 w-screen h-auto text-left">
@@ -75,7 +75,7 @@ export const NewArrivals = () => {
             <div className="my-5.5 flex gap-2">
                 {products.length > 0 ? (
                     products.slice(1, 5).map((p, i) => (
-                        <ProductComponent key={i} imgsrc={p.image} imgalt={i} title={p.title} rating={p.rating.rate} quan={quantities[p.id]} cart={()=>{addToCart(quantities[p.id], p.title)}} subQuan={()=>{updateQuantity(p.id, -1)}} addQuan={()=>{updateQuantity(p.id, 1)}} neqQuan={quantities[p.id]}/>
+                        <ProductComponent key={i} imgsrc={p.image} imgalt={i} title={p.title} price={p.price} rating={p.rating.rate} quan={quantities[p.id]} cart={()=>{addToCart(quantities[p.id], p)}} subQuan={()=>{updateQuantity(p.id, -1)}} addQuan={()=>{updateQuantity(p.id, 1)}} neqQuan={quantities[p.id]}/>
                     ))
                 ) : (
                     <p>Loading products...</p>
