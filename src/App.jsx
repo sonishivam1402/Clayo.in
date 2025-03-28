@@ -9,7 +9,7 @@ import { NewArrivals } from './components/NewArrivals'
 import { GridBanner } from './components/GridBanner'
 import { ProductComponent } from './components/ui/ProductCardComponent'
 import {Cart} from './components/Cart'
-import { Banner } from './components/ui/banner'
+import { Banner } from './components/ui/Banner'
 
 function App() {
   return (
