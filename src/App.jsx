@@ -9,15 +9,17 @@ import { NewArrivals } from './components/NewArrivals'
 import { GridBanner } from './components/GridBanner'
 import { ProductComponent } from './components/ui/ProductCardComponent'
 import {Cart} from './components/Cart'
+import { Banner } from './components/ui/banner'
 
 function App() {
   return (
     <GlobalContextProvider>
       <NavBar/>
       <Hero/>
+      <Banner src="2.jpg" href="#newArrival"/>
       <NewArrivals/>
-      <ProductComponent/>
-      
+      <GridBanner/>
+      <Banner src="1.png" />
     </GlobalContextProvider>
   )
 }

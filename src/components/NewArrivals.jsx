@@ -70,7 +70,7 @@ export const NewArrivals = () => {
     },[tempCart])
 
     return (
-        <div className="p-6 w-screen h-auto text-left">
+        <div className="p-6 w-screen h-auto text-left" >
             <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
             <div className="my-5.5 flex gap-2">
                 {products.length > 0 ? (
