@@ -21,7 +21,7 @@ export const ProductComponent = (props) => {
                 <div className="w-full flex justify-between items-center">
                     <span className='font-medium'>Price : ${props.price || 20} </span>
                     
-                    <FaShoppingCart className="scale-150 hover:scale-180" onClick={props.cart}/>
+                    <FaShoppingCart className="scale-150 hover:scale-180 cursor-pointer" onClick={props.cart}/>
                 </div>
 
                 <div className="flex items-center gap-6 mt-2">

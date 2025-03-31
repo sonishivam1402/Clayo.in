@@ -3,6 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { ProductComponent } from "./ui/ProductCardComponent";
 import GlobalContext from "../context/GlobalContext";
+import { FaChevronRight } from "react-icons/fa";
 
 export const NewArrivals = () => {
 
@@ -71,8 +72,13 @@ export const NewArrivals = () => {
 
     return (
         <div className="p-6 w-screen h-auto text-left">
-            <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
-            <div className="my-5.5 flex gap-2 overflow-x-auto overflow-y-hidden hide-scrollbar">
+            <div className="flex justify-between items-center">
+                <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
+                <div className="flex gap-2">
+                    <FaChevronRight onClick={() => { document.getElementById('product-conatiner').scrollLeft += 50 }} className="cursor-pointer" />
+                </div>
+            </div>
+            <div className="my-5.5 flex gap-2 overflow-x-scroll overflow-y-hidden hide-scrollbar" id="product-conatiner">
                 {products.length > 0 ? (
                     products.slice(1, 10).map((p, i) => (
                         <div key={i} className="flex-shrink-0">
