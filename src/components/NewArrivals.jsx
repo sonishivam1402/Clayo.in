@@ -9,13 +9,13 @@ export const NewArrivals = () => {
     const [products, setProducts] = useState([]);
     const [quantities, setQuantities] = useState({});
     const [tempCart, setTempCart] = useState([]);
-    const {cartItem, setCartItem} = useContext(GlobalContext);
+    const { cartItem, setCartItem } = useContext(GlobalContext);
 
     useEffect(() => {
         const loadProducts = async () => {
             try {
                 const response = await fetch(
-                    "https://fakestoreapi.com/products/category/men's clothing"
+                    "https://fakestoreapi.com/products"
                 );
                 const data = await response.json();
                 console.log(data);
@@ -46,41 +46,55 @@ export const NewArrivals = () => {
 
     const addToCart = (quantity, product) => {
         alert(quantity + " " + product.title + " added to cart !!")
-        const newItem = {"Product" : product, "Qty" : quantity}
-        setTempCart(prevData => [...prevData , newItem]);
-        
+        const newItem = { "Product": product, "Qty": quantity }
+        setTempCart(prevData => [...prevData, newItem]);
+
     }
 
-    useEffect(()=>{
-        console.log("cart item : ",cartItem);
-        
-        const final = tempCart.reduce((acc,item)=>{
-            if(acc[item.Product.title]){
-                acc[item.Product.title]=item
-            }else{
-                acc[item.Product.title]=item
-            }   
-            
-            return acc;
-            
-            },{});
-            console.log("final cart",final)
+    useEffect(() => {
+        console.log("cart item : ", cartItem);
 
-            setCartItem(final)
-    },[tempCart])
+        const final = tempCart.reduce((acc, item) => {
+            if (acc[item.Product.title]) {
+                acc[item.Product.title] = item
+            } else {
+                acc[item.Product.title] = item
+            }
+
+            return acc;
+
+        }, {});
+        console.log("final cart", final)
+
+        setCartItem(final)
+    }, [tempCart])
 
     return (
-        <div className="p-6 w-screen h-auto text-left" >
+        <div className="p-6 w-screen h-auto text-left">
             <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
-            <div className="my-5.5 flex gap-2">
+            <div className="my-5.5 flex gap-2 overflow-x-auto overflow-y-hidden hide-scrollbar">
                 {products.length > 0 ? (
-                    products.slice(1, 5).map((p, i) => (
-                        <ProductComponent key={i} imgsrc={p.image} imgalt={i} title={p.title} price={p.price} rating={p.rating.rate} quan={quantities[p.id]} cart={()=>{addToCart(quantities[p.id], p)}} subQuan={()=>{updateQuantity(p.id, -1)}} addQuan={()=>{updateQuantity(p.id, 1)}} neqQuan={quantities[p.id]}/>
+                    products.slice(1, 10).map((p, i) => (
+                        <div key={i} className="flex-shrink-0">
+                            <ProductComponent
+                                imgsrc={p.image}
+                                imgalt={i}
+                                title={p.title}
+                                price={p.price}
+                                rating={p.rating.rate}
+                                quan={quantities[p.id]}
+                                cart={() => addToCart(quantities[p.id], p)}
+                                subQuan={() => updateQuantity(p.id, -1)}
+                                addQuan={() => updateQuantity(p.id, 1)}
+                                neqQuan={quantities[p.id]}
+                            />
+                        </div>
                     ))
                 ) : (
                     <p>Loading products...</p>
                 )}
             </div>
         </div>
+
     );
 };

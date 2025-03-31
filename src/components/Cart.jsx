@@ -22,7 +22,7 @@ export const Cart = () => {
     }
 
     return (
-        <div className='w-1/3 h-screen p-3 absolute top-20 right-0 bg-white border-2 z-50 text-left'>
+        <div className='w-full sm:w-1/3 h-screen p-3 absolute top-20 right-0 bg-white border-2 z-50 text-left'>
             <div className="flex justify-between item-center">
                 <span className='text-2xl font-medium'>Cart</span>
             </div>

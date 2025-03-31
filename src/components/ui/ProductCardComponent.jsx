@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa6";
 export const ProductComponent = (props) => {
 
     return (
-        <div className='p-3 w-90 h-100 gap-6 mx-1 bg-white-200 border-2 border-amber-600 shadow-md  shadow-amber-800 rounded-xl flex flex-col items-center justify-center space-x-4'>
+        <div className='p-3 w-70 h-120 sm:w-90 sm:h-110 gap-6 mx-1 bg-white-200 border-2 border-amber-600 shadow-md  shadow-amber-800 rounded-xl flex flex-col items-center justify-center space-x-4'>
 
             <div className="relative">
                 <img src={props.imgsrc || "shopping.webp"} alt={props.imgalt || "shirt"} className='max-w-50 max-h-50 object-cover hover:scale-110' />
