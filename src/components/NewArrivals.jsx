@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa6";
 import { ProductComponent } from "./ui/ProductCardComponent";
 import GlobalContext from "../context/GlobalContext";
 import { FaChevronRight } from "react-icons/fa";
+import { Banner } from "./ui/Banner";
 
 export const NewArrivals = () => {
 
@@ -71,36 +72,47 @@ export const NewArrivals = () => {
     }, [tempCart])
 
     return (
-        <div className="p-6 w-screen h-auto text-left">
-            <div className="flex justify-between items-center">
-                <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
-                <div className="flex gap-2">
-                    <FaChevronRight onClick={() => { document.getElementById('product-conatiner').scrollLeft += 50 }} className="cursor-pointer" />
+        <>
+            <Banner src="1.png" />
+            <div className="p-6 w-screen h-auto text-left">
+                <div className="flex justify-between items-center">
+                    <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
+                    <div className="flex gap-2">
+                        <FaChevronRight
+                            onClick={() => {
+                                document.getElementById('product-container').scrollBy({
+                                    left: 250,
+                                    behavior: "smooth"
+                                });
+                            }}
+                            className="cursor-pointer"
+                        />
+
+                    </div>
+                </div>
+                <div className="my-5.5 flex gap-2 overflow-x-scroll overflow-y-hidden hide-scrollbar" id="product-container">
+                    {products.length > 0 ? (
+                        products.map((p, i) => (
+                            <div key={i} className="flex-shrink-0">
+                                <ProductComponent
+                                    imgsrc={p.image}
+                                    imgalt={i}
+                                    title={p.title}
+                                    price={p.price}
+                                    rating={p.rating.rate}
+                                    quan={quantities[p.id]}
+                                    cart={() => addToCart(quantities[p.id], p)}
+                                    subQuan={() => updateQuantity(p.id, -1)}
+                                    addQuan={() => updateQuantity(p.id, 1)}
+                                    neqQuan={quantities[p.id]}
+                                />
+                            </div>
+                        ))
+                    ) : (
+                        <p>Loading products...</p>
+                    )}
                 </div>
             </div>
-            <div className="my-5.5 flex gap-2 overflow-x-scroll overflow-y-hidden hide-scrollbar" id="product-conatiner">
-                {products.length > 0 ? (
-                    products.slice(1, 10).map((p, i) => (
-                        <div key={i} className="flex-shrink-0">
-                            <ProductComponent
-                                imgsrc={p.image}
-                                imgalt={i}
-                                title={p.title}
-                                price={p.price}
-                                rating={p.rating.rate}
-                                quan={quantities[p.id]}
-                                cart={() => addToCart(quantities[p.id], p)}
-                                subQuan={() => updateQuantity(p.id, -1)}
-                                addQuan={() => updateQuantity(p.id, 1)}
-                                neqQuan={quantities[p.id]}
-                            />
-                        </div>
-                    ))
-                ) : (
-                    <p>Loading products...</p>
-                )}
-            </div>
-        </div>
-
+        </>
     );
 };

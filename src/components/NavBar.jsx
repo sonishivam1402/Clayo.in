@@ -4,17 +4,18 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 import { UserProfile } from './UserProfile';
 import { Cart } from './Cart';
+import { Link } from 'react-router-dom';
 
 export const NavBar = () => {
     const [openCart, setOpenCart] = useState(false);
-    const [activeNav, setActiveNav] = useState("#home"); // Track active nav item
+    const [activeNav, setActiveNav] = useState(""); 
     const [menu, setMenu] = useState(false);
 
     const navItems = [
-        { name: "Home", href: "#home" },
-        { name: "New Arrivals", href: "#newArrival" },
-        { name: "Style", href: "#style" },
-        { name: "About", href: "#about" },
+        { name: "Men", href: "/men" },
+        { name: "Women", href: "/women" },
+        { name: "New Arrivals", href: "/new-arrivals" },
+        { name: "About", href: "/about" },
     ];
 
     return (
@@ -29,47 +30,49 @@ export const NavBar = () => {
                         
                         <ul className=' flex flex-col justify-between items-start gap-3'>
                             {navItems.map((n, i) => (
-                                <a
-                                    href={n.href}
+                                <Link
+                                    to={n.href}
                                     key={i}
                                     onClick={() => setActiveNav(n.href)} // Update activeNav state
                                 >
                                     <li className={activeNav === n.href ? "text-amber-700 font-bold" : "hover:text-amber-700 hover:font-bold"}>
                                         {n.name}
                                     </li>
-                                </a>
+                                </Link>
                             ))}
                         </ul>
                     </div>
                 )}
             </div>
             <div>
-                <span className='text-2xl font-bold text-amber-700 font-serif'>Clayo.</span>
+               <Link to="/" onClick={()=>setActiveNav("")}> <span className='text-2xl font-bold text-amber-700 font-serif'>Clayo.</span></Link>
             </div>
 
             <div className='hidden sm:flex sm:justify-between sm:items-center sm:gap-5'>
 
                 <ul className='md:gap-16 flex justify-between items-center'>
                     {navItems.map((n, i) => (
-                        <a
-                            href={n.href}
+                        <Link
+                            to={n.href}
                             key={i}
                             onClick={() => setActiveNav(n.href)} // Update activeNav state
                         >
                             <li className={activeNav === n.href ? "text-amber-700 font-bold" : "hover:text-amber-700 hover:font-bold"}>
                                 {n.name}
                             </li>
-                        </a>
+                        </Link>
                     ))}
                 </ul>
             </div>
 
             <div className='flex justify-between items-center gap-5'>
+                <Link to="/cart">
                 <IoCartOutline
                     size={22}
                     className='hover:scale-120 hover:cursor-pointer'
-                    onClick={() => setOpenCart(!openCart)}
+                    // onClick={() => setOpenCart(!openCart)}
                 />
+                </Link>
                 <UserProfile />
             </div>
 

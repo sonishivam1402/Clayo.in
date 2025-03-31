@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { FaUserCircle } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 export const UserProfile = () => {
 
     const [active, setActive] = useState(false)
 
     const options = [
-        { id: 1, name: "Profile" },
-        { id: 2, name: "Setting" },
-        { id: 3, name: "Logout" }
+        { id: 1, name: "Profile" , to:"/profile"},
+        { id: 2, name: "Setting" ,to:"/setting"},
+        { id: 3, name: "Logout" ,to:"/login"}
     ]
 
 
@@ -22,7 +23,7 @@ export const UserProfile = () => {
             {active ? (
                 <div className='w-30 h-30 p-3 absolute top-16 right-6 text-left bg-white text-black border-1 rounded-2xl '>
                     <ul>
-                        {options.map((option) => { return <a href='#'><li key={option.id} className='p-1 hover:text-amber-900' onClick={()=>alert(option.name)}>{option.name}</li></a> })}
+                        {options.map((option) => { return <Link to={option.to}><li key={option.id} className='p-1 hover:text-amber-900' onClick={()=>{alert(option.name),handleClick()}}>{option.name}</li></Link> })}
                     </ul>
                 </div>
             ) : (

@@ -22,7 +22,7 @@ export const Cart = () => {
     }
 
     return (
-        <div className='w-full sm:w-1/3 h-screen p-3 absolute top-20 right-0 bg-white border-2 z-50 text-left'>
+        <div className='p-6 w-full sm:w-screen h-screen bg-white text-left'>
             <div className="flex justify-between item-center">
                 <span className='text-2xl font-medium'>Cart</span>
             </div>
@@ -44,11 +44,11 @@ export const Cart = () => {
                     ))}
                     <hr />
 
-                    <div className="relative">
+                    <div>
                         <button className="m-3! p-3! w-50! bg-green-600! text-white! text-xl!" onClick={handleBuy}>
                             Proceed To Buy
                         </button>
-                        <img src='delivery.gif' className={`w-30 h-20 absolute top-0 left-10 -z-10 transition-transform duration-3000 ${animate ? 'translate-x-80' : ''}`} />
+                        
                     </div>
                 </>
             ) : (
