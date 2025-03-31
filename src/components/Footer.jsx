@@ -32,7 +32,7 @@ export const Footer = () => {
                 </ul>
             </div>
             
-            <div className="w-full sm:w-2/5 ">
+            <div className="w-full sm:w-2/5 -z-0">
                 <MapComponent/>
             </div>
 
