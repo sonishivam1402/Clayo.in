@@ -10,6 +10,7 @@ import { GridBanner } from './components/GridBanner'
 import { ProductComponent } from './components/ui/ProductCardComponent'
 import {Cart} from './components/Cart'
 import { Banner } from './components/ui/Banner'
+import { Footer } from './components/Footer'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <NewArrivals/>
       <GridBanner/>
       <Banner src="1.png" />
+      <Footer/>
     </GlobalContextProvider>
   )
 }
