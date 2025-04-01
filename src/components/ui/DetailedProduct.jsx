@@ -1,14 +1,17 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { IoMdArrowBack } from "react-icons/io";
 
 export const DetailedProduct = () => {
 
   const location = useLocation();
   const p = location.state || {};
 
+  const navigate = useNavigate();
+
   return (
     <div className='w-screen h-screen flex flex-col md:flex-row justify-center items-center  p-6'>
-     
+     <IoMdArrowBack size={24} className='hover:bg-amber-800 rounded-2xl hover:text-white hover:cursor-pointer' onClick={()=>{navigate(-1)}}/>
       <div className="p-6 w-full md:w-1/2 flex justify-center items-center ">
         <img src={p.image} alt="Product" className='w-90 h-110' />
       </div>
