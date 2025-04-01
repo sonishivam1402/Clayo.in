@@ -1,13 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import GlobalContext from '../context/GlobalContext'
 import { RxCross2 } from "react-icons/rx";
 import { IoCartOutline } from "react-icons/io5";
 
 export const Cart = () => {
 
-    const { cartItem } = useContext(GlobalContext);
+    const { cartItem, setCartItem } = useContext(GlobalContext);
     const cartEntries = Object.entries(cartItem);
-    const [animate, setAnimate] = useState(false)
+
+    useEffect(()=>{
+        scrollTo({top:0,behavior:'smooth'});
+    })
 
     const handleBuy = () => {
         let checkboxes = document.querySelectorAll('input[name="cart"]:checked');
@@ -18,8 +21,8 @@ export const Cart = () => {
         }, 0)
 
         alert("Final Price : $" + finalPrice);
-        setAnimate(true)
-        setTimeout(() => setAnimate(false), 2000)
+        setCartItem({})
+   
     }
 
     return (

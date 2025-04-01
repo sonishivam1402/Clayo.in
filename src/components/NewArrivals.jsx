@@ -5,6 +5,7 @@ import { ProductComponent } from "./ui/ProductCardComponent";
 import GlobalContext from "../context/GlobalContext";
 import { FaChevronRight } from "react-icons/fa";
 import { Banner } from "./ui/Banner";
+import { Filter } from "./ui/filter";
 
 export const NewArrivals = () => {
 
@@ -78,6 +79,7 @@ export const NewArrivals = () => {
                 <div className="flex justify-between items-center">
                     <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
                     <div className="flex gap-2">
+                        {/* <Filter/> */}
                         <FaChevronRight
                             onClick={() => {
                                 document.getElementById('product-container').scrollBy({
