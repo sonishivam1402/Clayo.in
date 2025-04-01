@@ -7,6 +7,7 @@ import { FaChevronRight } from "react-icons/fa";
 import { Banner } from "./ui/Banner";
 import { Filter } from "./ui/filter";
 import { LuFilter } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 export const NewArrivals = () => {
 
@@ -16,6 +17,7 @@ export const NewArrivals = () => {
     const { cartItem, setCartItem } = useContext(GlobalContext);
     const [filter, setfilter] = useState(false)
     const [category, setCategory] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const loadProducts = async () => {
@@ -113,6 +115,7 @@ export const NewArrivals = () => {
                             <div key={i} className="flex-shrink-0">
                                 <ProductComponent
                                     imgsrc={p.image}
+                                    imgclick={() => navigate('/detailedProduct', { state: p })}
                                     imgalt={i}
                                     title={p.title}
                                     price={p.price}

@@ -15,6 +15,7 @@ import { About } from "./components/About";
 import { Men } from "./components/Men";
 import { Women } from "./components/Women";
 import Profile from "./components/Profile";
+import {DetailedProduct} from "./components/ui/DetailedProduct";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
+          <Route path="/detailedProduct" element={<DetailedProduct />} />
           <Route path="/profile" element={<Profile/>} />
         </Routes>
 

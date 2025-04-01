@@ -29,10 +29,6 @@ export const Filter = (props) => {
           <input type="checkbox" id="category" name="women" value="category/women's clothing" onChange={handleChange}/>
           <label htmlFor="men">Women</label><br />
         </div>
-        <div className='flex gap-2'>
-          <input type="checkbox" id="category" name="kids" value="Kid" />
-          <label htmlFor="men">Kids</label><br />
-        </div>
       </div>
 
     </div>
