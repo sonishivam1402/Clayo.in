@@ -10,8 +10,8 @@ export const DetailedProduct = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='w-screen h-screen flex flex-col md:flex-row justify-center items-center  p-6'>
-     <IoMdArrowBack size={24} className='hover:bg-amber-800 rounded-2xl hover:text-white hover:cursor-pointer' onClick={()=>{navigate(-1)}}/>
+    <div className='w-screen h-300 sm:h-screen flex flex-col md:flex-row justify-center items-center  p-6'>
+     <IoMdArrowBack size={24} className='hidden sm:block sm:hover:bg-amber-800 sm:rounded-2xl sm:hover:text-white sm:hover:cursor-pointer' onClick={()=>{navigate(-1)}}/>
       <div className="p-6 w-full md:w-1/2 flex justify-center items-center ">
         <img src={p.image} alt="Product" className='w-90 h-110' />
       </div>

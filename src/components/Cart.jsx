@@ -26,12 +26,12 @@ export const Cart = () => {
     }
 
     return (
-        <div className='p-6 w-full sm:w-screen h-screen bg-white text-left'>
-            <div className="flex justify-between item-center">
+        <div className='p-6 w-full h-screen bg-white text-left'>
+            {/* <div className="flex justify-between item-center">
                 <span className='text-2xl font-medium text-amber-700'>Cart</span>
             </div>
 
-            <hr className='mt-2' />
+            <hr className='mt-2' /> */}
 
             {cartEntries && cartEntries.length > 0 ? (
                 <>
@@ -56,7 +56,7 @@ export const Cart = () => {
                     </div>
                 </>
             ) : (
-                <p className='m-1 text-2xl font-medium text-amber-700'>No Item in Cart</p>
+                <p className='h-screen m-1 text-2xl font-medium text-amber-700 place-content-center text-center'>No Item in Cart</p>
             )}
 
         </div>

@@ -6,6 +6,7 @@ import GlobalContext from "../context/GlobalContext";
 import { FaChevronRight } from "react-icons/fa";
 import { Banner } from "./ui/Banner";
 import { Filter } from "./ui/filter";
+import { useNavigate } from "react-router-dom";
 
 export const Women = () => {
 
@@ -13,6 +14,7 @@ export const Women = () => {
     const [quantities, setQuantities] = useState({});
     const [tempCart, setTempCart] = useState([]);
     const { cartItem, setCartItem } = useContext(GlobalContext);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const loadProducts = async () => {
@@ -99,6 +101,7 @@ export const Women = () => {
                                 <ProductComponent
                                     imgsrc={p.image}
                                     imgalt={i}
+                                    imgclick={() => navigate('/detailedProduct', { state: p })}
                                     title={p.title}
                                     price={p.price}
                                     rating={p.rating.rate}
