@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import GlobalContext from '../context/GlobalContext'
 import { RxCross2 } from "react-icons/rx";
+import { IoCartOutline } from "react-icons/io5";
 
 export const Cart = () => {
 
@@ -24,7 +25,7 @@ export const Cart = () => {
     return (
         <div className='p-6 w-full sm:w-screen h-screen bg-white text-left'>
             <div className="flex justify-between item-center">
-                <span className='text-2xl font-medium'>Cart</span>
+                <span className='text-2xl font-medium text-amber-700'>Cart</span>
             </div>
 
             <hr className='mt-2' />
@@ -52,7 +53,7 @@ export const Cart = () => {
                     </div>
                 </>
             ) : (
-                <p className='m-1 text-2xl font-medium'>No Item in Cart</p>
+                <p className='m-1 text-2xl font-medium text-amber-700'>No Item in Cart</p>
             )}
 
         </div>

@@ -14,6 +14,7 @@ import { Dashboard } from "./components/Dashboard";
 import { About } from "./components/About";
 import { Men } from "./components/Men";
 import { Women } from "./components/Women";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
+          <Route path="/profile" element={<Profile/>} />
         </Routes>
 
         <Footer />
