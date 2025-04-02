@@ -55,12 +55,12 @@ export const Cart = () => {
                         <div key={name} className='p-3 w-full flex justify-start items-start gap-5'>
                             <input type='checkbox' value={item.Product.price * item.Qty} id={name} name='cart' className='mt-8' defaultChecked />
                             <img src={item.Product.image} alt={item.Product.title} className='w-18 h-20' />
-                            <div className='flex flex-col'>
+                            <div className='w-full flex flex-col'>
                                 <span className='font-medium'>{item.Product.title}</span>
                                 <span>Price : ${item.Product.price}</span>
                                 <span>Qty : {item.Qty}</span>
                             </div>
-                            <div className="w-full">
+                            <div className="w-fit">
                                 <RxCross2 onClick={() => handleDelete(name)} className="float-end cursor-pointer" />
                             </div>
                         </div>
