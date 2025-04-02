@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import GlobalContext from '../context/GlobalContext';
 
 const Profile = () => {
-    const { user } = useContext(GlobalContext);
+    //const { user } = useContext(GlobalContext);
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
         if (!user) navigate("/login");
@@ -16,14 +17,14 @@ const Profile = () => {
         <div className="w-screen p-6 shadow-lg rounded-lg mt-10">
             <div className="flex items-center space-x-6">
                 <img
-                    src={user.profilePic || "vite.svg"}
+                    src={"vite.svg"}
                     alt="User Avatar"
                     className="w-24 h-24 rounded-full border-2 border-gray-300"
                 />
                 <div className="text-left text-amber-800">
-                    <h2 className="text-2xl font-semibold">{user.username}</h2>
-                    <p>{user.email}</p>
-                    <p>{user.mobileNo}</p>
+                    <h2 className="text-2xl font-semibold">Name: {user.name}</h2>
+                    <h2 className="text-xl font-semibold">Email: {user.email}</h2>
+                    <h2 className="text-xl font-semibold">Mobile No: {user.mobileNo}</h2>
                     <button className="mt-2 px-4 py-2 border-2 border-amber-800 rounded-lg hover:bg-amber-800 hover:text-white transition">
                         Edit Profile
                     </button>

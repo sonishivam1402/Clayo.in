@@ -11,12 +11,14 @@ export const Login = () => {
 
     const navigate = useNavigate();
 
-    const {setUser} = useContext(GlobalContext);
+    //const {setUser} = useContext(GlobalContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password, email, mobileNo);
-        setUser({username, password, email, mobileNo});
+        const user = {name:username, pass:password, email:email, mobileNo:mobileNo}
+        localStorage.setItem("user",JSON.stringify(user));
+        //setUser({username, password, email, mobileNo});
         navigate("/")
     }
 

@@ -15,6 +15,7 @@ export const UserProfile = () => {
 
     const handleClick = () => {
         active ? setActive(false) : setActive(true);
+        
     }
 
     return (
@@ -23,7 +24,7 @@ export const UserProfile = () => {
             {active ? (
                 <div className='w-30 h-30 p-3 absolute top-16 right-6 text-left bg-white text-black border-1 rounded-2xl '>
                     <ul>
-                        {options.map((option) => { return <Link to={option.to}><li key={option.id} className='p-1 hover:text-amber-900' onClick={()=>{alert(option.name),handleClick()}}>{option.name}</li></Link> })}
+                        {options.map((option) => { return <Link to={option.to}><li key={option.id} className='p-1 hover:text-amber-900' onClick={()=>{handleClick(),option.name=="Logout"?localStorage.removeItem("user"):""}}>{option.name}</li></Link> })}
                     </ul>
                 </div>
             ) : (
