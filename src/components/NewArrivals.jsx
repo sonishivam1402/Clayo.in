@@ -61,22 +61,37 @@ export const NewArrivals = () => {
 
     useEffect(() => {
         console.log("cart item : ", cartItem);
-
-        const final = tempCart.reduce((acc, item) => {
-            if (acc[item.Product.title]) {
-                acc[item.Product.title] = item
+    
+        // Retrieve existing cart from localStorage or initialize an empty object
+        const storedCart = JSON.parse(localStorage.getItem("cart")) || {};
+    
+        const updatedCart = tempCart.reduce((acc, item) => {
+            const title = item.Product.title;
+    
+            // Check if the product already exists in localStorage
+            if (storedCart[title]) {
+                acc[title] = {
+                    ...storedCart[title], // Keep existing product data
+                    Qty: storedCart[title].Qty + item.Qty // Update quantity
+                };
             } else {
-                acc[item.Product.title] = item
+                acc[title] = { ...item }; // Add new product
             }
-
+    
             return acc;
-
-        }, {});
-        console.log("final cart", final)
-
-        setCartItem(final)
-    }, [tempCart])
-
+        }, { ...storedCart }); // Merge with existing cart
+    
+        console.log("final cart", updatedCart);
+        
+        // Store updated cart in localStorage
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        
+        // Update state
+        //setCartItem(updatedCart);
+    
+    }, [tempCart]);
+    
+    
     const handleFilter = (data) => {
         setCategory(data)
     }
