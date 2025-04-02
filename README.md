@@ -1,3 +1,5 @@
+![Image](https://github.com/user-attachments/assets/9667fb6b-229a-4555-b306-92a70c68482f)
+
 ## 🛍️ About Clayo
 Welcome to **Clayo**, an elegant e-commerce platform designed to provide luxury fashion with ease. Built using **React** and **Tailwind CSS**, Clayo offers a seamless and modern shopping experience.
 
@@ -16,3 +18,10 @@ Welcome to **Clayo**, an elegant e-commerce platform designed to provide luxury 
 - **API**: FakeStore API (for testing purposes)
 
 ## 📸 Screenshots
+![Image](https://github.com/user-attachments/assets/6641f2da-77bf-4d5e-bea9-b25e096fbbf5)
+
+![Image](https://github.com/user-attachments/assets/c9cc5b5c-b113-440c-99cd-1b6b06d798d9)
+
+![Image](https://github.com/user-attachments/assets/e19c4c94-d873-4168-a027-19aad81eb050)
+
+![Image](https://github.com/user-attachments/assets/0f5a19f5-e7a7-4896-862d-d504642d9836)
