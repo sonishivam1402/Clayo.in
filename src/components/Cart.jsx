@@ -26,7 +26,7 @@ export const Cart = () => {
     }
 
     return (
-        <div className='p-6 w-full h-screen bg-white text-left'>
+        <div className='p-6 w-screen h-screen bg-gray-100 text-left'>
             {/* <div className="flex justify-between item-center">
                 <span className='text-2xl font-medium text-amber-700'>Cart</span>
             </div>

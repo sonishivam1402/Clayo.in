@@ -79,7 +79,7 @@ export const Women = () => {
             <Banner src="1.png" />
             <div className="p-6 w-screen h-auto text-left">
                 <div className="flex justify-between items-center">
-                    <span className="text-3xl font-bold text-amber-700">New Arrivals</span>
+                    <span className="text-3xl font-bold text-amber-700">Women's</span>
                     <div className="flex gap-2">
                         {/* <Filter/> */}
                         <FaChevronRight

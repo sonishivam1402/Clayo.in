@@ -33,7 +33,7 @@ export const NavBar = () => {
                                 <Link
                                     to={n.href}
                                     key={i}
-                                    onClick={() => setActiveNav(n.href)} // Update activeNav state
+                                    onClick={(() => setActiveNav(n.href),()=>setMenu(false))} 
                                 >
                                     <li className={activeNav === n.href ? "text-amber-700 font-bold" : "hover:text-amber-700 hover:font-bold"}>
                                         {n.name}
@@ -55,7 +55,7 @@ export const NavBar = () => {
                         <Link
                             to={n.href}
                             key={i}
-                            onClick={() => setActiveNav(n.href)} // Update activeNav state
+                            onClick={() => setActiveNav(n.href)} 
                         >
                             <li className={activeNav === n.href ? "text-amber-700 font-bold" : "hover:text-amber-700 hover:font-bold"}>
                                 {n.name}
