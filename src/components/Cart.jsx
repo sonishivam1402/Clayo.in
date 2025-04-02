@@ -13,12 +13,23 @@ export const Cart = () => {
 
     const handleBuy = () => {
         let checkboxes = document.querySelectorAll('input[name="cart"]:checked');
+        console.log(checkboxes)
         let values = Array.from(checkboxes).map(cb => cb.value);
+        console.log("checkbox : ", values);
         let finalPrice = values.reduce((acc, index) => acc + parseFloat(index), 0);
 
         alert("Final Price : $" + finalPrice);
-        setCartItem({});
-        localStorage.removeItem("cart"); // Clear cart after buying
+
+        const updatedCart = { ...cartItem };
+        let names = Array.from(checkboxes).map(cb => cb.id);
+        names.forEach((n) => delete updatedCart[n]); // Removes each product from cart
+        const newCart = { ...updatedCart }; // Create a new object to update state
+
+        console.log(newCart)
+        setCartItem(newCart); // Update state to re-render
+        localStorage.setItem("cart", JSON.stringify(updatedCart)); // Sync with localStorage
+
+        // localStorage.removeItem("cart"); // Clear cart after buying
     };
 
     const handleDelete = (name) => {
@@ -42,7 +53,7 @@ export const Cart = () => {
                 <>
                     {Object.entries(cartItem).map(([name, item]) => (
                         <div key={name} className='p-3 w-full flex justify-start items-start gap-5'>
-                            <input type='checkbox' value={item.Product.price * item.Qty} name='cart' className='mt-8' defaultChecked />
+                            <input type='checkbox' value={item.Product.price * item.Qty} id={name} name='cart' className='mt-8' defaultChecked />
                             <img src={item.Product.image} alt={item.Product.title} className='w-18 h-20' />
                             <div className='flex flex-col'>
                                 <span className='font-medium'>{item.Product.title}</span>
@@ -50,7 +61,7 @@ export const Cart = () => {
                                 <span>Qty : {item.Qty}</span>
                             </div>
                             <div className="w-full">
-                            <RxCross2 onClick={() => handleDelete(name)} className="float-end cursor-pointer" />
+                                <RxCross2 onClick={() => handleDelete(name)} className="float-end cursor-pointer" />
                             </div>
                         </div>
                     ))}
