@@ -6,6 +6,7 @@ import GlobalContext from "../../context/GlobalContext";
 import { ProductComponent } from "./ProductCardComponent";
 import { Banner } from "./Banner";
 import { Filter } from "./filter";
+import Product from "../../utils/api/Product";
 
 export const ProductSection = ({ title, category }) => {
     const [products, setProducts] = useState([]);
@@ -18,12 +19,17 @@ export const ProductSection = ({ title, category }) => {
     useEffect(() => {
         const loadProducts = async () => {
             try {
-                const response = await fetch(`https://fakestoreapi.com/products${category ? `/category/${category}` : ""}`);
-                const data = await response.json();
-                setProducts(data);
+                //const response = await fetch(`https://fakestoreapi.com/products${category ? `/category/${category}` : ""}`);
+                //const data = await response.json();
+                
+                const data = await Product();
+                const filterData = `${category}` ? data.filter((d)=>{return d.category == `${category}`}) : data
+                //console.log("filter",filterData)
+            
+                setProducts(filterData);
 
                 const initialQuantities = data.reduce((acc, product) => {
-                    acc[product.id] = 0;
+                    acc[product.productId] = 0;
                     return acc;
                 }, {});
                 setQuantities(initialQuantities);
@@ -104,12 +110,12 @@ export const ProductSection = ({ title, category }) => {
                                     imgalt={p.title}
                                     title={p.title}
                                     price={p.price}
-                                    rating={p.rating.rate}
-                                    quan={quantities[p.id]}
-                                    cart={() => addToCart(quantities[p.id], p)}
-                                    subQuan={() => updateQuantity(p.id, -1)}
-                                    addQuan={() => updateQuantity(p.id, 1)}
-                                    neqQuan={quantities[p.id]}
+                                    rating={p.rating_rate}
+                                    quan={quantities[p.productId]}
+                                    cart={() => addToCart(quantities[p.productId], p)}
+                                    subQuan={() => updateQuantity(p.productId, -1)}
+                                    addQuan={() => updateQuantity(p.productId, 1)}
+                                    neqQuan={quantities[p.productId]}
                                 />
                             </div>
                         ))

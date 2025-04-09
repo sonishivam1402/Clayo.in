@@ -25,8 +25,8 @@ export const DetailedProduct = () => {
 
           <p className="text-gray-600">{p.description}</p>
           <span className="text-sm text-gray-500">Category: {p.category}</span>
-          <span className="text-sm text-gray-500">Stock Available: {p.rating.count}</span>
-          <span className="text-lg">⭐ {p.rating.rate}</span>
+          <span className="text-sm text-gray-500">Stock Available: {p.stock}</span>
+          <span className="text-lg">⭐ {p.rating_rate}</span>
 
           <p className="text-2xl font-semibold text-green-600">${p.price}</p>
 
@@ -40,7 +40,7 @@ export const DetailedProduct = () => {
           <button className="mt-4! px-6! py-3! border-2! border-amber-800! hover:bg-amber-800!">Add to Cart</button>
         </div>
       </div>
-      <div className=' flex gap-2 overflow-x-scroll overflow-y-hidden hide-scrollbar '>
+      <div className='w-screen flex gap-2 overflow-x-scroll overflow-y-hidden hide-scrollbar '>
         <ReviewCard /><ReviewCard /><ReviewCard />
         <ReviewCard /><ReviewCard /><ReviewCard />
       </div>
