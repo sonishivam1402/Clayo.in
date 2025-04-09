@@ -11,6 +11,9 @@ export const NavBar = () => {
     const [activeNav, setActiveNav] = useState(""); 
     const [menu, setMenu] = useState(false);
 
+    
+    const user = JSON.parse(localStorage.getItem("user")) || {name: "Guest"};
+
     const navItems = [
         { name: "Men", href: "/men" },
         { name: "Women", href: "/women" },
@@ -73,7 +76,11 @@ export const NavBar = () => {
                     // onClick={() => setOpenCart(!openCart)}
                 />
                 </Link>
+                
+                <div className='flex justify-between items-center gap-2'>
                 <UserProfile />
+                    <span>{user.name}</span>
+                </div>
             </div>
 
             {openCart && <Cart />}

@@ -1,49 +1,44 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import GlobalContext from '../context/GlobalContext';
 
 const Profile = () => {
-    //const { user } = useContext(GlobalContext);
-    const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    if (!user) navigate("/login");
+  }, [user, navigate]);
 
-    useEffect(() => {
-        if (!user) navigate("/login");
-    }, [user, navigate]); 
+  if (!user) return null;
 
-    if (!user) return null; 
-
-    return (
-        <div className="w-screen p-6 shadow-lg rounded-lg mt-10">
-            <div className="flex items-center space-x-6">
-                <img
-                    src={"vite.svg"}
-                    alt="User Avatar"
-                    className="w-24 h-24 rounded-full border-2 border-gray-300"
-                />
-                <div className="text-left text-amber-800">
-                    <h2 className="text-2xl font-semibold">Name: {user.name}</h2>
-                    <h2 className="text-xl font-semibold">Email: {user.email}</h2>
-                    <h2 className="text-xl font-semibold">Mobile No: {user.mobileNo}</h2>
-                    <button className="mt-2 px-4 py-2 border-2 border-amber-800 rounded-lg hover:bg-amber-800 hover:text-white transition">
-                        Edit Profile
-                    </button>
-                </div>
-            </div>
-
-            <div className="mt-6">
-                <h3 className="text-xl font-semibold mb-3">Order History</h3>
-                <div className="bg-gray-100 p-4 rounded-lg">
-                    <p className="text-gray-700">Order #12345 - <span className="font-semibold">$120.00</span></p>
-                    <p className="text-sm text-gray-500">Status: Delivered</p>
-                </div>
-                <div className="bg-gray-100 p-4 rounded-lg mt-2">
-                    <p className="text-gray-700">Order #67890 - <span className="font-semibold">$85.00</span></p>
-                    <p className="text-sm text-gray-500">Status: Shipped</p>
-                </div>
-            </div>
+  return (
+    <div className="w-screen min-h-screen bg-gray-50 flex items-center justify-center px-4 py-10">
+      <div className="bg-white shadow-xl rounded-2xl p-8 max-w-2xl w-full flex flex-col sm:flex-row items-center sm:items-start gap-8 border border-gray-100">
+        <img
+          src="/vite.svg" // Replace with user's profile pic if available
+          alt="User Avatar"
+          className="w-32 h-32 rounded-full object-cover border-4 border-amber-500 shadow-md"
+        />
+        <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-2">
+          <h2 className="text-3xl font-bold text-amber-700">{user.name}</h2>
+          <p className="text-lg text-gray-700">
+            <span className="font-semibold">Email:</span> {user.email}
+          </p>
+          <p className="text-lg text-gray-700">
+            <span className="font-semibold">Mobile No:</span> {user.mobile_no}
+          </p>
+          <p className="text-lg text-gray-700">
+            <span className="font-semibold">Role:</span> {user.role}
+          </p>
+          <button
+            className="mt-4 bg-amber-600 text-white px-5 py-2 rounded-lg hover:bg-amber-700 transition font-medium"
+            onClick={() => alert("Edit Profile coming soon...")}
+          >
+            Edit Profile
+          </button>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Profile;

@@ -16,6 +16,7 @@ import { Men } from "./components/Men";
 import { Women } from "./components/Women";
 import Profile from "./components/Profile";
 import {DetailedProduct} from "./components/ui/DetailedProduct";
+import { Signup } from "./components/SignUp";
 
 function App() {
   return (
@@ -25,15 +26,16 @@ function App() {
 
         {/* Define Routes */}
         <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/new-arrivals" element={<NewArrivals />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/" element={<Hero />} />
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
+          <Route path="/new-arrivals" element={<NewArrivals />} />
+          <Route path="/about" element={<About />} />
           <Route path="/detailedProduct" element={<DetailedProduct />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile/>} />
         </Routes>
 
@@ -44,3 +46,42 @@ function App() {
 }
 
 export default App;
+
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+
+// function App() {
+//   const [data, setData] = useState([]);
+
+//   useEffect(() => {
+//     axios.get("/api/User") // Adjust to your endpoint
+//       .then(response => {
+//         console.log(response.data)
+//         setData(response.data);
+//       })
+//       .catch(error => {
+//         console.error("API Error:", error);
+//       });
+//   }, []);
+ 
+  
+//   return (
+//     <div>
+//       <h1>Data from ASP.NET API:</h1>
+//       <ul>
+//         {data.map((p)=>{
+//           return(
+//           <>
+//           <p>{p.id}</p>
+//           <p>{p.name}</p>
+//           <p>{p.email}</p>
+//           <p>{p.mobile_no}</p>
+//           <p>{p.role}</p>
+//           </>)
+//         })}
+//       </ul>
+//     </div>
+//   );
+// }
+
+// export default App;
