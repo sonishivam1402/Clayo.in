@@ -13,9 +13,10 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = await LoginAuth(email,password);
-    //console.log(user);
-    localStorage.setItem("user", JSON.stringify(user));
-    navigate("/");
+    if(user){
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/");
+    }
   }
 
   return (

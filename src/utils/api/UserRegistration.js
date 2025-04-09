@@ -9,7 +9,7 @@ const UserRegistration = async (name, email, phoneNumber, password) => {
         return response.data;
     }catch(error){
         if(error.response){
-            alert("login Failed");
+            alert("Login Failed");
         }else{
             alert("Network Error");
         }

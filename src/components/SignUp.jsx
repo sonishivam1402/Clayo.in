@@ -13,8 +13,11 @@ export const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     const result = await UserRegistration(name,email,mobileNo,password)
-    alert(result.message);
-    navigate("/login"); 
+    if(result){
+      alert(result.message);
+      navigate("/login"); 
+    }
+    
   }
 
   return (

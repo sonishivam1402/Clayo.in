@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoCartOutline } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 import { UserProfile } from './UserProfile';
 import { Cart } from './Cart';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const NavBar = () => {
     const [openCart, setOpenCart] = useState(false);
     const [activeNav, setActiveNav] = useState(""); 
     const [menu, setMenu] = useState(false);
+    const [username, setUserName] = useState("")
+    const location = useLocation()
 
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user")) || {name: "Guest"};
+        setUserName(user.name);
+      }, [location.pathname]);
     
-    const user = JSON.parse(localStorage.getItem("user")) || {name: "Guest"};
 
     const navItems = [
         { name: "Men", href: "/men" },
@@ -79,7 +84,7 @@ export const NavBar = () => {
                 
                 <div className='flex justify-between items-center gap-2'>
                 <UserProfile />
-                    <span>{user.name}</span>
+                    <span>{username}</span>
                 </div>
             </div>
 
