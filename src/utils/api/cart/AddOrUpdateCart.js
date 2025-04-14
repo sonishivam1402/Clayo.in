@@ -4,8 +4,8 @@ import axios from 'axios'
 const AddOrUpdateCart = async (userId,productId,quantity) => {
     try{
         const response  = await axios.post("/api/Cart/addOrUpdate",{userId, productId, quantity});
-        console.log(response);
-        return response;
+        console.log(response.data);
+        return response.data;
     }catch(err){
         if(err.response){
             alert(err.response);

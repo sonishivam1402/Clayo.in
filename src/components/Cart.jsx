@@ -1,44 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import { RxCross2 } from "react-icons/rx";
+import GetCartItem from "../utils/api/cart/GetCartItem";
+import DeleteCartItem from "../utils/api/cart/DeleteCartItem";
+import placeOrder from '../utils/api/order/placeOrder';
 
 export const Cart = () => {
 
-    const [cartItem, setCartItem] = useState(() => {
-        return JSON.parse(localStorage.getItem("cart")) || {};
-    });
+    const [cartItem, setCartItem] = useState({});
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const loadCart = async () => {
+        const response  = await GetCartItem(user.id);  
+        if(response){
+            console.log(response);  
+            setCartItem(response);
+        }
+    } 
 
     useEffect(() => {
         scrollTo({ top: 0, behavior: 'smooth' });
+        loadCart();
     }, []);
 
-    const handleBuy = () => {
+    useEffect(()=>{
+        console.log("Cart Updated !!")
+    },[cartItem])
+
+
+    const handleBuy = async () => {
         let checkboxes = document.querySelectorAll('input[name="cart"]:checked');
-        console.log(checkboxes)
-        let values = Array.from(checkboxes).map(cb => cb.value);
-        console.log("checkbox : ", values);
-        let finalPrice = values.reduce((acc, index) => acc + parseFloat(index), 0);
-
-        alert("Final Price : $" + finalPrice);
-
-        const updatedCart = { ...cartItem };
-        let names = Array.from(checkboxes).map(cb => cb.id);
-        names.forEach((n) => delete updatedCart[n]); // Removes each product from cart
-        const newCart = { ...updatedCart }; // Create a new object to update state
-
-        console.log(newCart)
-        setCartItem(newCart); // Update state to re-render
-        localStorage.setItem("cart", JSON.stringify(updatedCart)); // Sync with localStorage
-
-        // localStorage.removeItem("cart"); // Clear cart after buying
+        console.log(checkboxes);
+        if(checkboxes.length > 0){
+            let ids = Array.from(checkboxes).map(cb => cb.id);
+            //console.log("checkbox : ", ids);
+            let cartIds = ids.toString();
+            console.log("final ids : ",cartIds)
+            
+            const response  = await placeOrder(cartIds);
+            if(response){
+                alert("Order Placed Successfully");
+                const updatedCart = { ...cartItem };
+                let names = Array.from(checkboxes).map(cb => cb.value);
+                names.forEach((n) => delete updatedCart[n]); // Removes each product from cart
+                const newCart = { ...updatedCart }; // Create a new object to update state
+        
+                console.log(newCart)
+                setCartItem(newCart);
+            }
+        }else{
+            alert("No item selected");
+        }
+        
     };
 
-    const handleDelete = (name) => {
-        console.log(name);
-        const updatedCart = { ...cartItem }; // Create a copy of cartItem
-        delete updatedCart[name]; // Remove the specific item
+    const handleDelete = async (index, id) => {
+        console.log(id);
+        const response = await DeleteCartItem(id);
+        alert(response);
 
-        setCartItem(updatedCart); // Update state to re-render
-        localStorage.setItem("cart", JSON.stringify(updatedCart)); // Sync with localStorage
+        const updatedCart = { ...cartItem }; // Create a copy of cartItem
+        delete updatedCart[index]; // Remove the specific item
+
+        setCartItem(updatedCart); 
     };
 
     return (
@@ -51,17 +75,17 @@ export const Cart = () => {
 
             {Object.keys(cartItem).length > 0 ? (
                 <>
-                    {Object.entries(cartItem).map(([name, item]) => (
-                        <div key={name} className='p-3 w-full flex justify-start items-start gap-5'>
-                            <input type='checkbox' value={item.Product.price * item.Qty} id={name} name='cart' className='mt-8' defaultChecked />
-                            <img src={item.Product.image} alt={item.Product.title} className='w-18 h-20' />
+                    {Object.entries(cartItem).map(([key, item]) => (
+                        <div key={key} className='p-3 w-full flex justify-start items-start gap-5'>
+                            <input type='checkbox' value={key} id={item.cartId} name='cart' className='mt-8' defaultChecked />
+                            <img src={item.image} alt={item.title} className='w-18 h-20' />
                             <div className='w-full flex flex-col'>
-                                <span className='font-medium'>{item.Product.title}</span>
-                                <span>Price : ${item.Product.price}</span>
-                                <span>Qty : {item.Qty}</span>
+                                <span className='font-medium'>{item.title}</span>
+                                <span>Price : ${item.price}</span>
+                                <span>Qty : {item.quantity}</span>
                             </div>
                             <div className="w-fit">
-                                <RxCross2 onClick={() => handleDelete(name)} className="float-end cursor-pointer" />
+                                <RxCross2 onClick={() => handleDelete(key, item.cartId)} className="float-end cursor-pointer" />
                             </div>
                         </div>
                     ))}

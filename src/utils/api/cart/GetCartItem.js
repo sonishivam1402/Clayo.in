@@ -3,16 +3,18 @@ import axios from 'axios'
 
 const GetCartItem = async (userId) => {
     try{
-        const response = await axios.get("/api/cart/userId",{userId});
+        const response = await axios.get(`/api/cart/${userId}`);
         console.log(response);
-        return response;
+        return response.data;
     }catch(err){
-        if(err.response){
-            alert(err.response);
-        }
-        alert(err.response);
+        console.log(err);
+        alert(err.response.data[0].message);
     }
     
 }
 
 export default GetCartItem
+
+
+
+///  need to manage response as there are two objects returning based on condition

@@ -3,9 +3,9 @@ import axios from 'axios'
 
 const DeleteCartItem = async (cartId) => {
 try{
-    const response = await axios.delete("/api/cart/delete",{cartId})
-    console.log(response)
-    return response
+    const response = await axios.delete(`/api/cart/delete/${cartId}`)
+    //console.log(response)
+    return response.data;
 }
 catch(err){
     if(err.response){
