@@ -5,8 +5,13 @@ const placeOrder = async (cartIds) => {
     try{
         const response  = await axios.post('/api/Order/PlaceOrder',{cartIds});
         return response;
-    }catch(err){
-        alert(err.response);
+    }catch(error){
+        if(error.response.data){
+            //console.log(error.response)
+            alert(error.response.data.message)
+        }else{
+            alert(error.response.statusText + ", " + error.message);
+        }
     }
     
 }

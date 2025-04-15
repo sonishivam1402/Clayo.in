@@ -8,11 +8,11 @@ const LoginAuth = async (email, password) => {
         console.log("Login Successfull",response)
         return response.data.user;
     }catch(error){
-        if(error.response){
-            console.log(error.response.data)
-            alert(error.response.data.message);
+        if(error.response.data){
+            //console.log(error.response)
+            alert(error.response.data.message)
         }else{
-            alert("Network Error");
+            alert(error.response.statusText + ", " + error.message);
         }
     }
 }

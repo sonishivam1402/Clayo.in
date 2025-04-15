@@ -24,18 +24,24 @@ export const ProductSection = ({ title, category }) => {
             try {
                 //const response = await fetch(`https://fakestoreapi.com/products${category ? `/category/${category}` : ""}`);
                 //const data = await response.json();
-                
+
                 // fetching data from sql
                 const data = await Product();
-                const filterData = `${category}` ? data.filter((d)=>{return d.category == `${category}`}) : data
-                setProducts(filterData);
+                
+                if (data) {
+                    const filterData = `${category}` ? data.filter((d) => { return d.category == `${category}` }) : data
+                    setProducts(filterData);
 
-                // initializing default quantities to zero for add to cart option , and it is mapped with product id
-                const initialQuantities = data.reduce((acc, product) => {
-                    acc[product.productId] = 0;
-                    return acc;
-                }, {});
-                setQuantities(initialQuantities);
+                    // initializing default quantities to zero for add to cart option , and it is mapped with product id
+                    const initialQuantities = data.reduce((acc, product) => {
+                        acc[product.productId] = 0;
+                        return acc;
+                    }, {});
+                    setQuantities(initialQuantities);
+                }
+
+
+
 
 
             } catch (error) {
@@ -56,7 +62,7 @@ export const ProductSection = ({ title, category }) => {
 
     const addToCart = async (quantity, product) => {
 
-        const response = await AddOrUpdateCart(user.id, product.productId,quantity)
+        const response = await AddOrUpdateCart(user.id, product.productId, quantity)
         alert(response);
         //alert(`${quantity} ${product.title} added to cart!`);
         // const newItem = { "Product": product, "Qty": quantity };

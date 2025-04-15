@@ -6,9 +6,13 @@ const GetCartItem = async (userId) => {
         const response = await axios.get(`/api/cart/${userId}`);
         console.log(response);
         return response.data;
-    }catch(err){
-        console.log(err);
-        alert(err.response.data[0].message);
+    }catch(error){
+        if(error.response.data){
+            //console.log(error.response)
+            alert(error.response.data.message)
+        }else{
+            alert(error.response.statusText + ", " + error.message);
+        }
     }
     
 }

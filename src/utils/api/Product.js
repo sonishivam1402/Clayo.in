@@ -8,8 +8,11 @@ const Product = async () => {
         console.log("Product Fetched Succesfully", products.data)
         return products.data;
     } catch(error) {
-        if(error.response){
-            alert(error.reponse)
+        if(error.response.data){
+            //console.log(error.response)
+            alert(error.response.data.message)
+        }else{
+            alert(error.response.statusText + ", " + error.message);
         }
     }
 }

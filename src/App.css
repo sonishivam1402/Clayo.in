@@ -35,6 +35,10 @@ button:hover {
   width: 98vw;
 }
 
+.text-xss{
+  font-size: 10px;
+}
+
 
 /*
 .logo {

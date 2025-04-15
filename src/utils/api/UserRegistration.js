@@ -8,10 +8,11 @@ const UserRegistration = async (name, email, phoneNumber, password) => {
         console.log(response.data)
         return response.data;
     }catch(error){
-        if(error.response){
-            alert("Login Failed");
+        if(error.response.data){
+            //console.log(error.response)
+            alert(error.response.data.message)
         }else{
-            alert("Network Error");
+            alert(error.response.statusText + ", " + error.message);
         }
     }
 }

@@ -7,11 +7,13 @@ try{
     //console.log(response)
     return response.data;
 }
-catch(err){
-    if(err.response){
-        alert(err.response);
+catch(error){
+    if(error.response.data){
+        //console.log(error.response)
+        alert(error.response.data.message)
+    }else{
+        alert(error.response.statusText + ", " + error.message);
     }
-    alert("Network Error");
 }  
 }
 

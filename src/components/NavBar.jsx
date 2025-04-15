@@ -83,8 +83,7 @@ export const NavBar = () => {
                 </Link>
                 
                 <div className='flex justify-between items-center gap-2'>
-                <UserProfile />
-                    <span>{username}</span>
+                <UserProfile name={username}/>
                 </div>
             </div>
 
