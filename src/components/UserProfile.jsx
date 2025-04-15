@@ -23,7 +23,7 @@ export const UserProfile = (props) => {
         <div>
             <div className="flex gap-2 hover:cursor-pointer" onClick={handleClick}>
             <FaUserCircle size={28} color='brown' className='relative hover:scale-120 '  />
-            <span>{props.name}</span>
+            <span className='hidden sm:block'>{props.name}</span>
             </div>
             
             {active ? (

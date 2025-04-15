@@ -11,7 +11,7 @@ const GetOrderDetails = async (userId) => {
   catch (error) {
     if (error.response.data) {
       //console.log(error.response)
-      alert(error.response.data.message)
+      alert(error.response.data[0].message)
     } else {
       alert(error.response.statusText + ", " + error.message);
     }

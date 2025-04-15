@@ -78,7 +78,9 @@ export const Cart = () => {
                     {Object.entries(cartItem).map(([key, item]) => (
                         <div key={key} className='p-3 w-full flex justify-start items-start gap-5'>
                             <input type='checkbox' value={key} id={item.cartId} name='cart' className='mt-8' defaultChecked />
-                            <img src={item.image} alt={item.title} className='w-18 h-20' />
+                            <div className="w-20 h-auto">
+                            <img src={item.image} alt={item.title} className='w-fit h-auto' />
+                            </div>
                             <div className='w-full flex flex-col'>
                                 <span className='font-medium'>{item.title}</span>
                                 <span>Price : ${item.price}</span>

@@ -22,12 +22,9 @@ export const ProductSection = ({ title, category }) => {
     useEffect(() => {
         const loadProducts = async () => {
             try {
-                //const response = await fetch(`https://fakestoreapi.com/products${category ? `/category/${category}` : ""}`);
-                //const data = await response.json();
-
-                // fetching data from sql
+                 // fetching data from sql
                 const data = await Product();
-                
+
                 if (data) {
                     const filterData = `${category}` ? data.filter((d) => { return d.category == `${category}` }) : data
                     setProducts(filterData);
@@ -40,11 +37,8 @@ export const ProductSection = ({ title, category }) => {
                     setQuantities(initialQuantities);
                 }
 
-
-
-
-
-            } catch (error) {
+            } 
+            catch (error) {
                 console.error("Error fetching products:", error);
             }
         };
@@ -63,33 +57,10 @@ export const ProductSection = ({ title, category }) => {
     const addToCart = async (quantity, product) => {
 
         const response = await AddOrUpdateCart(user.id, product.productId, quantity)
-        alert(response);
-        //alert(`${quantity} ${product.title} added to cart!`);
-        // const newItem = { "Product": product, "Qty": quantity };
-        // setTempCart((prevData) => [...prevData, newItem]);
+        if (response){
+            alert(response);
+        }
     };
-
-    // useEffect(() => {
-    //     const storedCart = JSON.parse(localStorage.getItem("cart")) || {};
-
-    //     const updatedCart = tempCart.reduce((acc, item) => {
-    //         const title = item.Product.title;
-
-    //         if (storedCart[title]) {
-    //             acc[title] = {
-    //                 ...storedCart[title],
-    //                 Qty: storedCart[title].Qty + item.Qty,
-    //             };
-    //         } else {
-    //             acc[title] = { ...item };
-    //         }
-
-    //         return acc;
-    //     }, { ...storedCart });
-
-    //     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    //     setCartItem(updatedCart);
-    // }, [tempCart, setCartItem]);
 
     return (
         <div>

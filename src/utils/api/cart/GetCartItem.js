@@ -9,7 +9,7 @@ const GetCartItem = async (userId) => {
     }catch(error){
         if(error.response.data){
             //console.log(error.response)
-            alert(error.response.data.message)
+            alert(error.response.data[0].message)
         }else{
             alert(error.response.statusText + ", " + error.message);
         }
@@ -20,5 +20,3 @@ const GetCartItem = async (userId) => {
 export default GetCartItem
 
 
-
-///  need to manage response as there are two objects returning based on condition
