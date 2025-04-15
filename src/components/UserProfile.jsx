@@ -21,8 +21,8 @@ export const UserProfile = (props) => {
 
     return (
         <div>
-            <div className="flex gap-2 hover:cursor-pointer" onClick={handleClick}>
-            <FaUserCircle size={28} color='brown' className='relative hover:scale-120 '  />
+            <div className="flex gap-2 hover:cursor-pointer justify-between items-center" onClick={handleClick}>
+            <img src={props.image} alt="" className='w-8 h-8 relative rounded-2xl hover:scale-120'/>
             <span className='hidden sm:block'>{props.name}</span>
             </div>
             

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const Profile = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
   useEffect(() => {
     if (!user) navigate("/login");
   }, [user, navigate]);
@@ -14,7 +15,7 @@ const Profile = () => {
     <div className="w-screen min-h-screen bg-gray-50 flex items-center justify-center px-4 py-10">
       <div className="bg-white shadow-xl rounded-2xl p-8 max-w-2xl w-full flex flex-col sm:flex-row items-center sm:items-start gap-8 border border-gray-100">
         <img
-          src="/vite.svg" // Replace with user's profile pic if available
+          src={user.profile_picture} // Replace with user's profile pic if available
           alt="User Avatar"
           className="w-32 h-32 rounded-full object-cover border-4 border-amber-500 shadow-md"
         />
