@@ -11,7 +11,7 @@ export const Cart = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     const loadCart = async () => {
-        const response  = await GetCartItem(user.id);  
+        const response  = await GetCartItem(user.cartId);  
         if(response){
             console.log(response);  
             setCartItem(response);
@@ -34,10 +34,10 @@ export const Cart = () => {
         if(checkboxes.length > 0){
             let ids = Array.from(checkboxes).map(cb => cb.id);
             //console.log("checkbox : ", ids);
-            let cartIds = ids.toString();
-            console.log("final ids : ",cartIds)
+            let cartItemIds = ids.toString();
+            console.log("final ids : ",cartItemIds)
             
-            const response  = await placeOrder(cartIds);
+            const response  = await placeOrder(user.id, user.cartId, cartItemIds);
             if(response){
                 alert("Order Placed Successfully");
                 const updatedCart = { ...cartItem };
@@ -77,7 +77,7 @@ export const Cart = () => {
                 <>
                     {Object.entries(cartItem).map(([key, item]) => (
                         <div key={key} className='p-3 w-full flex justify-start items-start gap-5'>
-                            <input type='checkbox' value={key} id={item.cartId} name='cart' className='mt-8' defaultChecked />
+                            <input type='checkbox' value={key} id={item.cartItemId} name='cart' className='mt-8' defaultChecked />
                             <div className="w-20 h-auto">
                             <img src={item.image} alt={item.title} className='w-fit h-auto' />
                             </div>

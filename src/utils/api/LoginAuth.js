@@ -6,7 +6,7 @@ const LoginAuth = async (email, password) => {
     try{
         const response = await axios.post('/api/User/Login',{email,password});
         console.log("Login Successfull",response)
-        return response.data.user;
+        return response.data;
     }catch(error){
         if(error.response.data){
             //console.log(error.response)

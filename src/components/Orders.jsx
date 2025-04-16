@@ -35,7 +35,7 @@ const Orders = () => {
     useEffect(() => {
         if (order.length > 0) {
             const total_prices = order.reduce((acc, item) => {
-                return acc + item.product_total_price;
+                return acc + item.product_price;
             }, 0);
     
             setTotal(parseFloat(total_prices.toFixed(2)));
@@ -85,15 +85,15 @@ const Orders = () => {
                                 <span className='font-medium'>{item.product_title}</span>
                                 
                                 <div className=" sm:flex justify-start items-center gap-15">
-                                <span className='font-medium'>Price : ${item.product_total_price}</span>
+                                <span className='font-medium'>Price : ${item.product_price}</span>
                                 <br className='sm:hidden'/>
                                 <span className='font-medium'>Qty : {item.product_quantity}</span>
                                 </div>
                                 
                                 <span className='font-medium'>Placed On : {dayjs(item.order_date).format('DD MMMM YYYY hh:mm A')}</span>
                                 <br className='sm:hidden'/>
-                                <span className='font-medium'>Estimate Delivery : {dayjs(item.order_delivery_date).format('DD MMMM YYYY hh:mm A')}</span>
-                                <br className='sm:hidden'/>
+                                {/* <span className='font-medium'>Estimate Delivery : {dayjs(item.order_delivery_date).format('DD MMMM YYYY hh:mm A')}</span>
+                                <br className='sm:hidden'/> */}
                                 <span className='sm:hidden font-medium'>Status: <span className='text-green-700'>{item.order_status}</span></span>
 
                                 <div className="py-3 flex justify-between sm:justify-start items-center gap-5">
@@ -149,7 +149,7 @@ const Orders = () => {
                                     </div>
                                     <div className='w-full flex justify-between items-center text-xss'>
                                     <span>Order Received <br /> {dayjs(item.order_date).fromNow()} </span>
-                                    <span>Estimeted Delivery <br /> {dayjs().to(item.order_delivery_date)} </span>
+                                    {/* <span>Estimeted Delivery <br /> {dayjs().to(item.order_delivery_date)} </span> */}
                                 </div>
                                 </div>
                                

@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import LoginAuth from '../utils/api/LoginAuth';
 
 export const Login = () => {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [mobileNo, setMobileNo] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -13,6 +11,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = await LoginAuth(email,password);
+    console.log("user" , user)
     if(user){
       localStorage.setItem("user", JSON.stringify(user));
       navigate("/");
@@ -23,21 +22,11 @@ export const Login = () => {
     <div className="p-6 w-screen h-screen bg-[url('/summer.jpg')] bg-cover bg-center flex items-center justify-start">
       <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-2xl p-10 w-full max-w-md flex flex-col gap-5">
         <h2 className="text-2xl font-semibold text-amber-700 text-center">Welcome Back!</h2>
-        
-        {/* <input 
-          className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-          type="text" placeholder="Name" value={username} onChange={(e) => setUsername(e.target.value)} required
-        /> */}
 
         <input 
           className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
           type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required
         />
-
-        {/* <input 
-          className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-          type="number" placeholder="Mobile No" value={mobileNo} onChange={(e) => setMobileNo(e.target.value)} required
-        /> */}
 
         <input 
           className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"

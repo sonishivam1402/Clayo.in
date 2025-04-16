@@ -15,9 +15,9 @@ export const NavBar = () => {
     const location = useLocation()
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user")) || {name: "Guest", profile_picture:"/avatar.jpg"};
+        const user = JSON.parse(localStorage.getItem("user")) || {name: "Guest", profileImage:"/avatar.jpg"};
         setUserName(user.name);
-        setImage(user.profile_picture)
+        setImage(user.profileImage || "/avatar.jpg")
       }, [location.pathname]);
     
 

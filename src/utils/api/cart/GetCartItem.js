@@ -1,9 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 
-const GetCartItem = async (userId) => {
+const GetCartItem = async (cartId) => {
     try{
-        const response = await axios.get(`/api/cart/${userId}`);
+        const response = await axios.get(`/api/cart/${cartId}`);
         console.log(response);
         return response.data;
     }catch(error){
