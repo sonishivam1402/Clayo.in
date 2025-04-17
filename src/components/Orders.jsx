@@ -22,7 +22,7 @@ const Orders = () => {
 
     const loadOrderDetails = async () => {
         const response = await GetOrderDetails(user.id);
-        if(response){
+        if (response) {
             console.log(response);
             setOrder(response);
         }
@@ -35,13 +35,13 @@ const Orders = () => {
     useEffect(() => {
         if (order.length > 0) {
             const total_prices = order.reduce((acc, item) => {
-                return acc + item.product_price;
+                return acc + item.totalAmount;
             }, 0);
-    
+
             setTotal(parseFloat(total_prices.toFixed(2)));
         }
     }, [order]);
-    
+
 
     return (
         <div className='p-6 w-screen  bg-gray-100 text-left'>
@@ -53,67 +53,94 @@ const Orders = () => {
 
             <hr className='mt-2' />
 
-            <div className=" p-3 mt-3 w-full bg-white rounded-2xl sm:flex justify-start items-center gap-x-3">
+            {/* <div className=" p-3 mt-3 w-full bg-white rounded-2xl sm:flex justify-start items-center gap-x-3">
                 <div className="p-3 w-full h-25 bg-gray-100 text-center content-center">
                     Total Amount<br />
-                   <span className='font-medium'> ${total}</span>
+                    <span className='font-medium'> ${total}</span>
                 </div>
                 <div className="p-3 w-full h-25 bg-gray-100 text-center content-center">
                     Estimated Arrival <br />
                     <span className='font-medium'> {dayjs(Date()).format('DD MMMM YYYY')} - {dayjs(Date()).format('DD MMMM YYYY')}</span>
-                    
+
                 </div>
                 <div className="p-3 w-full h-25 bg-gray-100 text-center content-center">
-                    Delivered To <br/>
+                    Delivered To <br />
                     <span className='font-medium'>Iscon Atria 1, Gotri, Vadodara</span>
-                    
+
                 </div>
                 <div className="p-3 w-full h-25 bg-gray-100 text-center content-center">
-                    Delivered To <br/>
+                    Delivered To <br />
                     <span className='font-medium'>Iscon Atria 1, Gotri, Vadodara</span>
                 </div>
-            </div>
+            </div> */}
 
             {Object.keys(order).length > 0 ? (
                 <>
                     {Object.entries(order).map(([key, item]) => (
-                        <div key={key} className='mt-3 p-3 w-full sm:flex justify-start items-start gap-5 bg-white rounded-2xl'>
+                        <div key={key} className='p-3 mt-3 bg-gray-200 rounded-2xl'>
+
+                        <div className=" p-3 w-full bg-white rounded-2xl sm:flex justify-start items-center gap-x-3">
+                            <div className="p-3 w-full h-25 bg-gray-100 text-center content-center">
+                                Total Amount<br />
+                                <span className='font-medium'>{item.totalAmount}</span>
+                            </div>
+                            <div className="p-3 w-full h-25 bg-gray-100 text-center content-center">
+                                Placed At <br />
+                                <span className='font-medium'> {dayjs(item.placedAt).format('DD MMMM YYYY, hh:MM A')}</span>
+
+                            </div>
+                            <div className="p-3 w-full h-25 bg-gray-100 text-center content-center">
+                                Status <br />
+                                <span className='font-medium'>{item.status}</span>
+
+                            </div>
+                            <div className="p-3 w-full h-25 bg-gray-100 text-center content-center">
+                                Delivered To <br />
+                                <span className='font-medium'>Iscon Atria 1, Gotri, Vadodara</span>
+                            </div>
+                        </div>
+                        
+                        {Object.entries(item.orderItems).map(([key,orderItem])=>(
+                            <>
+                            <div key={key} className='mt-3 p-3 w-full sm:flex justify-start items-start gap-5 bg-white rounded-2xl'>
                             <div className='p-6 w-full sm:w-70 h-fit flex justify-center items-center'>
-                                <img src={item.product_image} alt={item.product_title} className='w-fit h-20 sm:h-auto' />
+                                <img src={orderItem.image} alt={orderItem.title} className='w-fit h-20 sm:h-auto' />
                             </div>
                             <div className='w-full sm:flex sm:flex-col'>
-                                <span className='font-medium'>{item.product_title}</span>
-                                
+                                <span className='font-medium'>{orderItem.title}</span>
+
                                 <div className=" sm:flex justify-start items-center gap-15">
-                                <span className='font-medium'>Price : ${item.product_price}</span>
+                                <span className='font-medium'>Price : ${orderItem.price}</span>
                                 <br className='sm:hidden'/>
-                                <span className='font-medium'>Qty : {item.product_quantity}</span>
+                                <span className='font-medium'>Qty : {orderItem.quantity}</span>
                                 </div>
-                                
-                                <span className='font-medium'>Placed On : {dayjs(item.order_date).format('DD MMMM YYYY hh:mm A')}</span>
+
+                                <span className='font-medium'>Estimated Delivery : {dayjs(item.shippingOrders[key].estimatedDeliveryDate).format('DD MMMM YYYY hh:mm A')}</span>
+                                <br className='sm:hidden'/>
+                                <span className='font-medium'>Tracking Number: {item.shippingOrders[key].trackingNumber}</span>
                                 <br className='sm:hidden'/>
                                 {/* <span className='font-medium'>Estimate Delivery : {dayjs(item.order_delivery_date).format('DD MMMM YYYY hh:mm A')}</span>
                                 <br className='sm:hidden'/> */}
-                                <span className='sm:hidden font-medium'>Status: <span className='text-green-700'>{item.order_status}</span></span>
+                                <span className='sm:hidden font-medium'>Status: <span className=' text-green-700'>{item.shippingOrders[key].status}</span></span>
 
                                 <div className="py-3 flex justify-between sm:justify-start items-center gap-5">
                                 <button className='bg-blue-300! text-white! hover:bg-blue-400!'> View Order</button>
                                 {item.order_status == 'Delivered' ? "" 
                                 : <button className='bg-red-300! text-white! hover:bg-red-400!'> Cancel Order</button>}
                                 </div>
-                                
+
                             </div>
                             <div className='w-full flex flex-col text-center items-end'>
-                                <label className='hidden sm:block m-3 p-2 w-fit h-fit bg-green-500 text-white rounded-xl font-medium text-xss'>{item.order_status}</label>
-                                
+                                <label className='hidden sm:block m-3 p-2 w-fit h-fit bg-green-500 text-white rounded-xl font-medium text-xss'>{item.shippingOrders[key].status}</label>
+
                                 <div className="p-3 w-full sm:w-200 h-25 bg-gray-100 ">
-                                    
+
                                     <div className='p-3 w-full h-12 flex justify-between items-center gap-7'>
                                         <div className='p-3 w-full h-12 flex justify-between items-center gap-7'>
                                             <BiSolidPackage
                                                 size={30}
                                                 color={
-                                                    ['Placed', 'Out for Delivery', 'Delivered'].includes(item.order_status)
+                                                    ['Placed', 'Out for Delivery', 'Delivered'].includes(item.shippingOrders[key].status)
                                                         ? 'green'
                                                         : 'black'
                                                 }
@@ -121,7 +148,7 @@ const Orders = () => {
                                             <MdLocalShipping
                                                 size={30}
                                                 color={
-                                                    ['Out for Delivery', 'Delivered'].includes(item.order_status)
+                                                    ['Out for Delivery', 'Delivered'].includes(item.shippingOrders[key].status)
                                                         ? 'green'
                                                         : 'black'
                                                 }
@@ -135,7 +162,7 @@ const Orders = () => {
                                     </div>
                                     <div className='bg-white h-1'>
                                         <div
-                                            className={`bg-green-600 h-1 ${item.order_status === 'Placed'
+                                            className={`bg-green-600 h-1 ${item.shippingOrders[key].status === 'Placed'
                                                 ? 'w-1/4'
                                                 : item.order_status === 'Dispatch'
                                                     ? 'w-2/4'
@@ -148,12 +175,16 @@ const Orders = () => {
                                         />
                                     </div>
                                     <div className='w-full flex justify-between items-center text-xss'>
-                                    <span>Order Received <br /> {dayjs(item.order_date).fromNow()} </span>
-                                    {/* <span>Estimeted Delivery <br /> {dayjs().to(item.order_delivery_date)} </span> */}
+                                    <span>Order Received <br /> {dayjs(item.placedAt).fromNow()} </span>
+                                    <span>Estimated Delivery <br /> {dayjs().to(item.shippingOrders[key].estimatedDeliveryDate)} </span>
                                 </div>
                                 </div>
-                               
+
                             </div>
+                        </div>
+                            </>
+                        ))}
+                        
                         </div>
                     ))}
                     <hr className='mt-2' />

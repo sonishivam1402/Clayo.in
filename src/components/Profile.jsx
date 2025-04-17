@@ -15,7 +15,7 @@ const Profile = () => {
     <div className="w-screen min-h-screen bg-gray-50 flex items-center justify-center px-4 py-10">
       <div className="bg-white shadow-xl rounded-2xl p-8 max-w-2xl w-full flex flex-col sm:flex-row items-center sm:items-start gap-8 border border-gray-100">
         <img
-          src={user.profile_picture} 
+          src={user.profileImage} 
           alt="User Avatar"
           className="w-32 h-32 rounded-full object-cover border-4 border-amber-500 shadow-md"
         />
@@ -26,9 +26,6 @@ const Profile = () => {
           </p>
           <p className="text-lg text-gray-700">
             <span className="font-semibold">Mobile No:</span> {user.mobile_no}
-          </p>
-          <p className="text-lg text-gray-700">
-            <span className="font-semibold">Role:</span> {user.role}
           </p>
           <button
             className="mt-4 bg-amber-600 text-white px-5 py-2 rounded-lg hover:bg-amber-700 transition font-medium"

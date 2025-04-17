@@ -5,6 +5,7 @@ const GetOrderDetails = async (userId) => {
   try {
     const response = await axios.get(`/api/Order/GetOrderDetails/${userId}`);
     if (response) {
+      console.log(response)
       return response.data;
     }
   } 

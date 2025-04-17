@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IoMdArrowBack } from "react-icons/io";
 import { ReviewCard } from './ReviewCard';
+import AddOrUpdateCart from "../../utils/api/cart/addOrUpdateCart";
 
 export const DetailedProduct = () => {
 
   const location = useLocation();
   const p = location.state || {};
+  
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const navigate = useNavigate();
+  const [quantity, setQuantity] = useState(1);
+
+  const addToCart = async () => {
+    if(user){
+      const response = await AddOrUpdateCart(user.id, user.cartId, p.productId, quantity)
+      if (response){
+          alert(response);
+      }
+    }else{
+      alert("Please Login !!")
+      navigate('/login')
+    }
+    
+};
 
   return (
     <>
@@ -32,12 +49,12 @@ export const DetailedProduct = () => {
 
           <div className="flex items-center space-x-4">
             <span className="font-medium text-gray-700">Quantity:</span>
-            <input type="number" min="1" defaultValue="1" className="w-16 p-2 border border-gray-300 rounded" />
+            <input type="number" min="1" className="w-16 p-2 border border-gray-300 rounded" value={quantity} onChange={(e)=>setQuantity(e.target.value)}/>
           </div>
 
 
 
-          <button className="mt-4! px-6! py-3! border-2! border-amber-800! hover:bg-amber-800!">Add to Cart</button>
+          <button className="mt-4! px-6! py-3! border-2! border-amber-800! hover:bg-amber-800!" onClick={addToCart}>Add to Cart</button>
         </div>
       </div>
       <div className='w-screen flex gap-2 overflow-x-scroll overflow-y-hidden hide-scrollbar '>
