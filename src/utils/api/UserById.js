@@ -15,8 +15,8 @@ const UserById = async (id) => {
         }
     
     } catch (err) {
-        if(err.response){
-            alert(err.response);
+        if(err){
+            alert(err);
         }
     }
    
