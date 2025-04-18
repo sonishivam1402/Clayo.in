@@ -14,6 +14,9 @@ export const Login = () => {
     console.log("user" , user)
     if(user){
       localStorage.setItem("user", JSON.stringify(user));
+      if(user.token){
+        localStorage.setItem('authToken', user.token);
+      }
       navigate("/");
     }
   }

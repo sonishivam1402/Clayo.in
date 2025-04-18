@@ -1,9 +1,14 @@
 import React from 'react'
 import axios from 'axios'
 
-const GetCartItem = async (cartId) => {
+const GetCartItem = async (userId,cartId) => {
+    const token = localStorage.getItem('authToken');
     try{
-        const response = await axios.get(`/api/cart/${cartId}`);
+        const response = await axios.get(`/api/cart/${userId}/${cartId}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         console.log(response);
         return response.data;
     }catch(error){

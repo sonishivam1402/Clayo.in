@@ -2,8 +2,13 @@ import React from 'react'
 import axios from 'axios'
 
 const GetOrderDetails = async (userId) => {
+  const token = localStorage.getItem('authToken');
   try {
-    const response = await axios.get(`/api/Order/GetOrderDetails/${userId}`);
+    const response = await axios.get(`/api/Order/GetOrderDetails/${userId}`,{
+      headers: {
+        Authorization: `Bearer ${token}`
+    }
+    });
     if (response) {
       console.log(response)
       return response.data;

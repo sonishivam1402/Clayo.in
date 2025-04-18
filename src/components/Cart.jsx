@@ -11,7 +11,7 @@ export const Cart = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     const loadCart = async () => {
-        const response  = await GetCartItem(user.cartId);  
+        const response  = await GetCartItem(user.id, user.cartId);  
         if(response){
             console.log(response);  
             setCartItem(response);
