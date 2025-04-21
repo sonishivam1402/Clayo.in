@@ -7,6 +7,7 @@ import { ProductComponent } from "./ProductCardComponent";
 import { Banner } from "./Banner";
 import { Filter } from "./filter";
 import Product from "../../utils/api/Product";
+import AddOrUpdateCart from "../../utils/api/cart/AddOrUpdateCart";
 
 export const ProductSection = ({ title, category }) => {
     const [products, setProducts] = useState([]);
@@ -16,24 +17,28 @@ export const ProductSection = ({ title, category }) => {
     const navigate = useNavigate();
     const { setCartItem } = useContext(GlobalContext);
 
+    const user = JSON.parse(localStorage.getItem("user"));
+
     useEffect(() => {
         const loadProducts = async () => {
             try {
-                //const response = await fetch(`https://fakestoreapi.com/products${category ? `/category/${category}` : ""}`);
-                //const data = await response.json();
-                
+                 // fetching data from sql
                 const data = await Product();
-                const filterData = `${category}` ? data.filter((d)=>{return d.category == `${category}`}) : data
-                //console.log("filter",filterData)
-            
-                setProducts(filterData);
 
-                const initialQuantities = data.reduce((acc, product) => {
-                    acc[product.productId] = 0;
-                    return acc;
-                }, {});
-                setQuantities(initialQuantities);
-            } catch (error) {
+                if (data) {
+                    const filterData = `${category}` ? data.filter((d) => { return d.category == `${category}` }) : data
+                    setProducts(filterData);
+
+                    // initializing default quantities to zero for add to cart option , and it is mapped with product id
+                    const initialQuantities = data.reduce((acc, product) => {
+                        acc[product.productId] = 0;
+                        return acc;
+                    }, {});
+                    setQuantities(initialQuantities);
+                }
+
+            } 
+            catch (error) {
                 console.error("Error fetching products:", error);
             }
         };
@@ -41,6 +46,7 @@ export const ProductSection = ({ title, category }) => {
         loadProducts();
     }, [category]);
 
+    // function to update quantity for add to cart 
     const updateQuantity = (productId, change) => {
         setQuantities((prev) => ({
             ...prev,
@@ -48,33 +54,13 @@ export const ProductSection = ({ title, category }) => {
         }));
     };
 
-    const addToCart = (quantity, product) => {
-        alert(`${quantity} ${product.title} added to cart!`);
-        const newItem = { "Product": product, "Qty": quantity };
-        setTempCart((prevData) => [...prevData, newItem]);
+    const addToCart = async (quantity, product) => {
+
+        const response = await AddOrUpdateCart(user.id, user.cartId, product.productId, quantity)
+        if (response){
+            alert(response);
+        }
     };
-
-    useEffect(() => {
-        const storedCart = JSON.parse(localStorage.getItem("cart")) || {};
-
-        const updatedCart = tempCart.reduce((acc, item) => {
-            const title = item.Product.title;
-
-            if (storedCart[title]) {
-                acc[title] = {
-                    ...storedCart[title],
-                    Qty: storedCart[title].Qty + item.Qty,
-                };
-            } else {
-                acc[title] = { ...item };
-            }
-
-            return acc;
-        }, { ...storedCart });
-
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-        setCartItem(updatedCart);
-    }, [tempCart, setCartItem]);
 
     return (
         <div>

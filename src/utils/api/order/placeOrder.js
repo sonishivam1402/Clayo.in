@@ -1,20 +1,19 @@
 import React from 'react'
 import axios from 'axios'
 
-const GetCartItem = async (userId,cartId) => {
+const placeOrder = async (userId, cartId, cartItemIds) => {
     const token = localStorage.getItem('authToken');
     try{
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart/${userId}/${cartId}`,{
+        const response  = await axios.post(`${import.meta.env.VITE_API_URL}/Order/PlaceOrder`,{userId, cartId, cartItemIds},{
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log(response);
-        return response.data;
+        return response;
     }catch(error){
         if(error.response.data){
             //console.log(error.response)
-            alert(error.response.data[0].message)
+            alert(error.response.data.message)
         }else{
             alert(error.response.statusText + ", " + error.message);
         }
@@ -22,6 +21,4 @@ const GetCartItem = async (userId,cartId) => {
     
 }
 
-export default GetCartItem
-
-
+export default placeOrder

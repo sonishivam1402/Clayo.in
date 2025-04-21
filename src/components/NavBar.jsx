@@ -11,11 +11,13 @@ export const NavBar = () => {
     const [activeNav, setActiveNav] = useState(""); 
     const [menu, setMenu] = useState(false);
     const [username, setUserName] = useState("")
+    const [userImage, setImage] = useState("")
     const location = useLocation()
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user")) || {name: "Guest"};
+        const user = JSON.parse(localStorage.getItem("user")) || {name: "Guest", profileImage:"/avatar.jpg"};
         setUserName(user.name);
+        setImage(user.profileImage || "/avatar.jpg")
       }, [location.pathname]);
     
 
@@ -83,8 +85,7 @@ export const NavBar = () => {
                 </Link>
                 
                 <div className='flex justify-between items-center gap-2'>
-                <UserProfile />
-                    <span>{username}</span>
+                <UserProfile name={username} image={userImage}/>
                 </div>
             </div>
 

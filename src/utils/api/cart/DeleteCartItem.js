@@ -2,16 +2,23 @@ import React from 'react'
 import axios from 'axios'
 
 const DeleteCartItem = async (cartId) => {
+    const token = localStorage.getItem('authToken');
 try{
-    const response = await axios.delete("/api/cart/delete",{cartId})
-    console.log(response)
-    return response
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/cart/delete/${cartId}`,{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    //console.log(response)
+    return response.data;
 }
-catch(err){
-    if(err.response){
-        alert(err.response);
+catch(error){
+    if(error.response.data){
+        //console.log(error.response)
+        alert(error.response.data.message)
+    }else{
+        alert(error.response.statusText + ", " + error.message);
     }
-    alert("Network Error");
 }  
 }
 

@@ -1,16 +1,22 @@
 import React from 'react'
 import axios from 'axios'
 
-const AddOrUpdateCart = async (userId,productId,quantity) => {
+const AddOrUpdateCart = async (userId,cartId,productId,quantity) => {
+    const token = localStorage.getItem('authToken');
     try{
-        const response  = await axios.post("/api/Cart/addOrUpdate",{userId, productId, quantity});
-        console.log(response);
-        return response;
-    }catch(err){
-        if(err.response){
-            alert(err.response);
+        const response  = await axios.post(`${import.meta.env.VITE_API_URL}/Cart/addOrUpdate`,{userId, cartId, productId, quantity},{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response.data);
+        return response.data;
+    }catch(error){
+        if(error.response.data){
+            //console.log(error.response)
+            alert(error.response.data.message)
         }else{
-            alert("Network Error");
+            alert(error.response.statusText + ", " + error.message);
         }
     }
     
