@@ -4,7 +4,7 @@ import axios from 'axios'
 const DeleteCartItem = async (cartId) => {
     const token = localStorage.getItem('authToken');
 try{
-    const response = await axios.delete(`/api/cart/delete/${cartId}`,{
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/cart/delete/${cartId}`,{
         headers: {
             Authorization: `Bearer ${token}`
         }

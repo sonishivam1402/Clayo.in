@@ -4,7 +4,7 @@ import axios from 'axios';
 const UserById = async (id) => {
     const token = localStorage.getItem('authToken');
     try {
-        const response = await axios.post(`/api/User/Id/${id}`,null,{
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/User/Id/${id}`,null,{
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -4,7 +4,7 @@ import axios from 'axios';
 const LoginAuth = async (email, password) => {
 
     try{
-        const response = await axios.post('/api/User/Login',{email,password});
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/User/Login`,{email,password});
         console.log("Login Successfull",response)
         return response.data;
     }catch(error){

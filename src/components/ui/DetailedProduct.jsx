@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IoMdArrowBack } from "react-icons/io";
 import { ReviewCard } from './ReviewCard';
-import AddOrUpdateCart from "../../utils/api/cart/addOrUpdateCart";
+import AddOrUpdateCart from "../../utils/api/cart/AddOrUpdateCart";
 
 export const DetailedProduct = () => {
 

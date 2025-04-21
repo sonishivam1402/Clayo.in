@@ -4,7 +4,7 @@ import axios from 'axios'
 const GetCartItem = async (userId,cartId) => {
     const token = localStorage.getItem('authToken');
     try{
-        const response = await axios.get(`/api/cart/${userId}/${cartId}`,{
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart/${userId}/${cartId}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }

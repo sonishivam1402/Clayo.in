@@ -7,7 +7,7 @@ import { ProductComponent } from "./ProductCardComponent";
 import { Banner } from "./Banner";
 import { Filter } from "./filter";
 import Product from "../../utils/api/Product";
-import AddOrUpdateCart from "../../utils/api/cart/addOrUpdateCart";
+import AddOrUpdateCart from "../../utils/api/cart/AddOrUpdateCart";
 
 export const ProductSection = ({ title, category }) => {
     const [products, setProducts] = useState([]);

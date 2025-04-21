@@ -4,7 +4,7 @@ import axios from 'axios'
 const placeOrder = async (userId, cartId, cartItemIds) => {
     const token = localStorage.getItem('authToken');
     try{
-        const response  = await axios.post('/api/Order/PlaceOrder',{userId, cartId, cartItemIds},{
+        const response  = await axios.post(`${import.meta.env.VITE_API_URL}/Order/PlaceOrder`,{userId, cartId, cartItemIds},{
             headers: {
                 Authorization: `Bearer ${token}`
             }
