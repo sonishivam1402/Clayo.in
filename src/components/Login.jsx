@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LoginAuth from '../utils/api/LoginAuth';
 
@@ -7,6 +7,14 @@ export const Login = () => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => {
+    if (user && user.token) {
+      // Optional: validate token expiration here as well
+      navigate('/'); // or /dashboard or wherever
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
