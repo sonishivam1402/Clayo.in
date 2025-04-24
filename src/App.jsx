@@ -18,7 +18,7 @@ import { Women } from "./components/Women";
 import Profile from "./components/Profile";
 import { DetailedProduct } from "./components/ui/DetailedProduct";
 import { Signup } from "./components/SignUp";
-import Orders from "./components/Orders";
+import Orders from "./components/order/index";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import Unauthorized from "./components/Unauthorized";
 import UserManagement from "./components/admin/UserManagement";

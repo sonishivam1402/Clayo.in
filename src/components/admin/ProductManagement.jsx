@@ -1,30 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEye , FaEdit, FaTrash } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
-
-const dummyProducts = [
-  {
-    id: 1,
-    name: 'Classic White T-Shirt',
-    category: 'Men',
-    price: '₹699',
-    stock: 24,
-    status: 'Active',
-    image: 'https://via.placeholder.com/60',
-  },
-  {
-    id: 2,
-    name: 'Women’s Oversized Hoodie',
-    category: 'Women',
-    price: '₹1,299',
-    stock: 5,
-    status: 'Inactive',
-    image: 'https://via.placeholder.com/60',
-  },
-];
+import Product from "../../utils/api/Product";
 
 const ProductManagement = () => {
-  const [products, setProducts] = useState(dummyProducts);
+  const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filterCategory, setFilterCategory] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
@@ -36,6 +16,16 @@ const ProductManagement = () => {
     status: 'Active',
     image: '',
   });
+
+  const loadProducts = async () => {
+    const result = await Product();
+    setProducts(result);
+    console.log(result);
+  }
+
+  useEffect(() => {
+    loadProducts();
+  }, [])
 
   const filteredProducts = products.filter(p => {
     return (
@@ -85,7 +75,7 @@ const ProductManagement = () => {
           onChange={(e) => setFilterCategory(e.target.value)}
         >
           <option value="">All Categories</option>
-          <option value="Men">Men</option>
+          <option value="men's clothing">Men</option>
           <option value="Women">Women</option>
         </select>
 
@@ -109,21 +99,22 @@ const ProductManagement = () => {
               <th className="px-6 py-4">Category</th>
               <th className="px-6 py-4">Price</th>
               <th className="px-6 py-4">Stock</th>
-              <th className="px-6 py-4">Status</th>
+              <th className="px-6 py-4">Rating</th>
               <th className="px-6 py-4 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((product) => (
-              <tr key={product.id} className="border-b hover:bg-gray-50 transition">
+            {products.map((product) => (
+              <tr key={product.productId} className="border-b hover:bg-gray-50 transition">
                 <td className="px-6 py-4">
                   <img src={product.image} alt={product.name} className="w-12 h-12 object-cover rounded-md" />
                 </td>
-                <td className="px-6 py-4">{product.name}</td>
+                <td className="px-6 py-4">{product.title}</td>
                 <td className="px-6 py-4">{product.category}</td>
                 <td className="px-6 py-4">{product.price}</td>
                 <td className="px-6 py-4">{product.stock}</td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4">{product.rating_rate}⭐</td>
+                {/* <td className="px-6 py-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
                       product.status === 'Active'
@@ -133,7 +124,7 @@ const ProductManagement = () => {
                   >
                     {product.status}
                   </span>
-                </td>
+                </td> */}
                 <td className="px-6 py-4 flex gap-3 justify-center">
                   <button className="text-blue-600 hover:text-blue-800" title="View">
                     <FaEye className="w-5 h-5" />

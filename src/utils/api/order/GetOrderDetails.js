@@ -4,13 +4,16 @@ import axios from 'axios'
 const GetOrderDetails = async (userId) => {
   const token = localStorage.getItem('authToken');
   try {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/Order/GetOrderDetails/${userId}`,{
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/Order/GetOrderDetails`,{
+      params: {
+        userId 
+      },
       headers: {
         Authorization: `Bearer ${token}`
-    }
+      }
     });
     if (response) {
-      console.log(response)
+      //console.log(response)
       return response.data;
     }
   } 
