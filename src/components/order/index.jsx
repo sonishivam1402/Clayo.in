@@ -13,6 +13,7 @@ const Orders = () => {
   const loadOrderDetails = async () => {
     try {
       const response = await GetOrderDetails(user.id);
+      console.log(response);
       if (response) setOrders(response);
     } catch (err) {
       console.error("Failed to load orders:", err);
