@@ -19,7 +19,7 @@ export const Hero = () => {
           <p className="text-white text-xl font-serif text-center">
             Step into a world of high-end fashion where every piece tells a story of elegance and exclusivity.
           </p>
-          <button className="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition" onClick={()=>navigate('/new-arrivals')}>
+          <button className="btn bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition" onClick={()=>navigate('/new-arrivals')}>
             Shop Now
           </button>
         </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 //import { Eye, Trash2, Ban, CheckCircle } from 'lucide-react';
 import { FaEye, FaTrash, FaCheckCircle, FaBan } from "react-icons/fa";
 import GetAllUsers from '../../utils/api/admin/GetAllUsers';
+import UpdateUserAccess from '../../utils/api/admin/UpdateUserAccess';
 
 
 
@@ -18,8 +19,17 @@ const UserManagement = () => {
     loadUser();
   }, [])
 
+  const handleUserAccess = async (id) => {
+    //console.log(id);
+    const response = await UpdateUserAccess(id);
+    if(response){
+      alert(response.message);
+      loadUser();
+    }
+  }
+
   return (
-    <div className="p-6 w-full bg-gray-100 min-h-screen">
+    <div className="p-6 w-screen bg-gray-100 min-h-screen">
       <h2 className="text-2xl font-semibold mb-6">User Management</h2>
       <div className="overflow-x-auto bg-white rounded-xl shadow-md">
         <table className="min-w-full text-sm text-left">
@@ -29,6 +39,7 @@ const UserManagement = () => {
               <th className="px-6 py-4">Email</th>
               <th className="px-6 py-4">Role</th>
               <th className="px-6 py-4">Contact No.</th>
+              <th className="px-6 py-4">Address</th>
               <th className="px-6 py-4">Has Access</th>
               <th className="px-6 py-4">Verified</th>
               <th className="px-6 py-4 text-center">Actions</th>
@@ -41,6 +52,7 @@ const UserManagement = () => {
                   <td className="px-6 py-4">{user.email}</td>
                   <td className="px-6 py-4">{user.role}</td>
                   <td className="px-6 py-4">{user.mobile_no}</td>
+                  <td className="px-6 py-4">{user.address}</td>
                   <td className="px-6 py-4">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium ${user.hasAccess
@@ -67,14 +79,14 @@ const UserManagement = () => {
                     </button> */}
                     <button
                       className={`${user.hasAccess ? 'text-red-600 hover:text-red-800' : 'text-green-600 hover:text-green-800'
-                        }`}
-                      title={user.hasAccess ? 'Block' : 'Unblock'}
+                        } hover:cursor-pointer`}
+                      title={user.hasAccess ? 'Block' : 'Unblock'} onClick={()=>handleUserAccess(user.id)}
                     >
                       {user.hasAccess ? <FaBan className="w-5 h-5" /> : <FaCheckCircle className="w-5 h-5" />}
                     </button>
-                    <button className="text-gray-600 hover:text-black" title="Delete">
+                    {/* <button className="text-gray-600 hover:text-black" title="Delete">
                       <FaTrash className="w-5 h-5" />
-                    </button>
+                    </button> */}
                   </td>
                 </tr>
               ))}

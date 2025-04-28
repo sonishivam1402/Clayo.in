@@ -64,7 +64,7 @@ const AdminDashboard = () => {
               {/* Placeholder rows */}
                 {Object.entries(recentOrder).map(([index,value])=>(
                   <tr key={index} className="border-t">
-                  <td className="px-4 py-2">{value.orderNo || '#ORD123'}</td>
+                  <td className="px-4 py-2">#{value.orderNo || 'ORD123'}</td>
                   <td className="px-4 py-2">{value.userName || 'Shivam Soni'}</td>
                   <td className="px-4 py-2">{dayjs(value.placedAt).format('DD MMMM YYYY, hh:MM a') || '20 Apr 2025'}</td>
                   <td className="px-4 py-2">{value.totalAmount || '₹1,499'}</td>
