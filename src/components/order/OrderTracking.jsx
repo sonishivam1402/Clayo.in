@@ -20,7 +20,7 @@ const OrderTracking = ({shipping, order}) => {
       <div className="w-full bg-white rounded-2xl">
         <InfoBlock title="Total Amount : " value={`$${order.totalAmount}`} />
         <InfoBlock title="Est. Delivery : " value={dayjs(shipping.estimatedDeliveryDate).format('DD MMM YYYY, hh:mm A')} />
-        <InfoBlock title="Tracking Number" value={`#${shipping.trackingNumber}`} />
+        <InfoBlock title="Tracking Number : " value={`#${shipping.trackingNumber}`} />
         <InfoBlock title="Delivered To : " value="Iscon Atria 1, Gotri, Vadodara" />
       </div>
 

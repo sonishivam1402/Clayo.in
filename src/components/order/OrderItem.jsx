@@ -15,16 +15,16 @@ const OrderItem = ({ item, order, orderItemKey, onCancel }) => {
 
             <div className='sm:w-1/2 flex flex-col'>
                 <div className="w-full sm:flex justify-start items-center gap-10">
-                    <span className='font-medium'>{item.title}</span>
+                    <span className='font-medium'>#{order.orderNumber}</span>
                     <span className={`hidden sm:block mt-1 w-fit px-2 py-1 text-white text-xs rounded-md ${item.status === 'Cancel' ? 'bg-red-500' : 'bg-green-500'
                         }`}>
                         {item.status}
                     </span>
                 </div>
-
-                <InfoBlock title="Price" value={`$${item.price}`} />
-                <InfoBlock title="Qty" value={`${item.quantity}`} />
-                <InfoBlock title="Placed At" value={`${dayjs(order.placedAt).format('DD MMM YYYY hh:mm A')}`} />
+                <InfoBlock value={`${item.title}`} />
+                <InfoBlock title="Price : " value={`$${item.price}`} />
+                <InfoBlock title="Qty : " value={`${item.quantity}`} />
+                <InfoBlock title="Placed At : " value={`${dayjs(order.placedAt).format('DD MMM YYYY hh:mm A')}`} />
 
                 <div className="py-3 flex justify-between sm:justify-start gap-5">
                     {/* <button className='bg-blue-500! text-white! px-3! py-1! rounded! hover:bg-blue-600!'>
@@ -64,7 +64,7 @@ const OrderItem = ({ item, order, orderItemKey, onCancel }) => {
 
 const InfoBlock = ({ title, value }) => (
     <div>
-        {title}: <span className='font-medium'>{value}</span>
+        {title}<span className='font-medium'>{value}</span>
     </div>
 );
 
