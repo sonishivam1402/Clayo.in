@@ -3,6 +3,8 @@ import { MdCancel, MdRemoveRedEye } from "react-icons/md";
 import { FaTruck } from "react-icons/fa";
 import GetOrderDetails from '../../utils/api/order/GetOrderDetails';
 import dayjs from 'dayjs';
+import OrderModal from './OrderModal';
+import GetAllOrderStatus from '../../utils/api/admin/GetAllOrderStatus';
 
 // const orders = [
 //   {
@@ -26,6 +28,14 @@ import dayjs from 'dayjs';
 const OrderManagement = () => {
 
   const [orders,setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [statusOptions, setStatusOptions] = useState([]);
+
+  const openModal = (order) => {
+    setSelectedOrder(order);
+    setModalOpen(true);
+  };
 
   const loadOrderDetails = async () => {
     try {
@@ -37,12 +47,29 @@ const OrderManagement = () => {
     }
   };
 
+  const fetchStatusOptions = async () => {
+    try{
+      const result = await GetAllOrderStatus();
+      if(result){
+        //console.log(result);
+        setStatusOptions(result)
+      }
+    }
+    catch(err){
+      console.error(err);
+    }
+  }
+
  useEffect(() => {
      loadOrderDetails();
+     fetchStatusOptions();
    }, []);
 
+
+   
+
   return (
-    <div className="p-6 w-full bg-gray-100 min-h-screen">
+    <div className="p-6 w-screen bg-gray-100 min-h-screen">
       <h2 className="text-2xl font-semibold mb-6">Order Management</h2>
       <div className="overflow-x-auto bg-white rounded-xl shadow-md">
         <table className="min-w-full text-sm text-left">
@@ -79,7 +106,7 @@ const OrderManagement = () => {
                   </span>
                 </td>
                 <td className="px-6 py-4 flex gap-3 justify-center">
-                  <button title="View" className="text-blue-600! hover:text-blue-800! hover:bg-transparent!">
+                  <button title="View" className="text-blue-600! hover:text-blue-800! hover:bg-transparent!" onClick={() => openModal(order)}>
                     <MdRemoveRedEye className="w-5 h-5" />
                   </button>
                   <button title="Update Status" className="text-green-600! hover:text-green-800! hover:bg-transparent!">
@@ -94,6 +121,12 @@ const OrderManagement = () => {
           </tbody>
         </table>
       </div>
+      <OrderModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        orderData={selectedOrder}
+        statusOptions = {statusOptions}
+      />
     </div>
   );
 };

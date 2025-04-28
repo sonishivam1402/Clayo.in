@@ -30,7 +30,7 @@ const AdminDashboard = () => {
   }, [])
 
   return (
-    <div className="p-6 space-y-6 w-full">
+    <div className="p-6 space-y-6 w-screen">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { title: 'Total Users', value: (`${data.totalUsers}` || '1,245'), to: ("/admin/users") },
