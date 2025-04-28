@@ -14,7 +14,7 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.btn {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -26,7 +26,7 @@ button {
   transition: border-color 0.25s;
   color: rgb(0, 0, 0);
 }
-button:hover {
+.btn:hover {
   background-color: #bb4d00;
   color: #ffffff;
 }

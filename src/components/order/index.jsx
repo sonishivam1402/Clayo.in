@@ -23,7 +23,8 @@ const Orders = () => {
   const handleCancel = async (id) => {
     const response = await CancelOrder(id);
     if (response) {
-      alert(response.Message);
+      //console.log(response);
+      alert(response.data.message);
       loadOrderDetails(); // reload orders after cancellation
     }
   };

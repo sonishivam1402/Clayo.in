@@ -30,7 +30,7 @@ const AdminDashboard = () => {
   }, [])
 
   return (
-    <div className="p-6 space-y-6 w-full">
+    <div className="p-6 space-y-6 w-screen">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { title: 'Total Users', value: (`${data.totalUsers}` || '1,245'), to: ("/admin/users") },
@@ -64,7 +64,7 @@ const AdminDashboard = () => {
               {/* Placeholder rows */}
                 {Object.entries(recentOrder).map(([index,value])=>(
                   <tr key={index} className="border-t">
-                  <td className="px-4 py-2">{value.orderNo || '#ORD123'}</td>
+                  <td className="px-4 py-2">#{value.orderNo || 'ORD123'}</td>
                   <td className="px-4 py-2">{value.userName || 'Shivam Soni'}</td>
                   <td className="px-4 py-2">{dayjs(value.placedAt).format('DD MMMM YYYY, hh:MM a') || '20 Apr 2025'}</td>
                   <td className="px-4 py-2">{value.totalAmount || '₹1,499'}</td>
