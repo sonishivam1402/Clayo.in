@@ -31,6 +31,10 @@ h1 {
   color: #ffffff;
 }
 
+button:hover{
+  cursor: pointer;
+}
+
 .w-screen {
   width: 98vw;
 }

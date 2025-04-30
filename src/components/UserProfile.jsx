@@ -10,7 +10,7 @@ export const UserProfile = (props) => {
         { id: 1, name: "Profile" , to:"/profile"},
         { id: 2, name: "Orders" , to:"/order"},
         { id: 3, name: "Setting" ,to:"/setting"},
-        { id: 4, name: "Logout" ,to:"/login"}
+        { id: 4, name: props.name == "Guest" ? "Login" : "Logout" ,to:"/login"}
     ]
 
 

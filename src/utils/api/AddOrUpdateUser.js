@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
 
-const UserRegistration = async (name, email, phoneNumber, password) => {
-
+const AddOrUpdateUser = async (data) => {
+console.log(data);
     try{
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/User/register`,{name,email,phoneNumber,password});
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/User/AddOrUpdateUser`,data,{
+            headers:{
+                "Content-Type":"application/json"
+            }
+        });
         console.log(response.data)
         return response.data;
     }catch(error){
@@ -17,4 +21,4 @@ const UserRegistration = async (name, email, phoneNumber, password) => {
     }
 }
 
-export default UserRegistration
+export default AddOrUpdateUser
