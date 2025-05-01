@@ -142,7 +142,7 @@ const Profile = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-white-10 backdrop-blur-md bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-white-10 backdrop-blur-md bg-opacity-25 flex justify-center items-center z-50">
           <div className="bg-white p-8 rounded-xl w-full max-w-2xl shadow-xl relative">
             <div className="border-b pb-4 mb-6 flex justify-between items-center">
               <h3 className="text-2xl font-bold text-amber-700">Edit Profile</h3>
