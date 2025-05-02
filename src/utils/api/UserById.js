@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const UserById = async (id) => {
     const token = localStorage.getItem('authToken');
@@ -15,8 +16,8 @@ const UserById = async (id) => {
         }
     
     } catch (err) {
-        if(err){
-            alert(err);
+        if(err.response){
+            toast.error(err.response.data.message);
         }
     }
    

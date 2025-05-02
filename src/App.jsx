@@ -25,8 +25,13 @@ import UserManagement from "./components/admin/UserManagement";
 import ProductManagement from "./components/admin/ProductManagement";
 import OrderManagement from "./components/admin/OrderManagement";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
+    <>
+    
     <GlobalContextProvider>
       <BrowserRouter>
         <NavBar />
@@ -83,6 +88,21 @@ function App() {
         <Footer />
       </BrowserRouter>
     </GlobalContextProvider>
+
+    {/* Toast Container */}
+    <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored" // you can try "light" or "dark" too
+      />
+    </>
   );
 }
 

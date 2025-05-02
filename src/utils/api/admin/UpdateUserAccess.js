@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const UpdateUserAccess = async (userId) => {
     //console.log(userId);
@@ -16,9 +17,9 @@ const UpdateUserAccess = async (userId) => {
     catch (err) {
         //console.log(err);
         if(err.response.data){
-            alert(err.response.data.title);
+            toast.error(err.response.data.title);
         }else{
-            alert(err.message);
+            toast.error(err.message);
         }
     }
 }

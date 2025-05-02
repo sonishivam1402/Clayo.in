@@ -3,6 +3,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 import Product from "../../utils/api/Product";
 import AddOrUpdateProduct from '../../utils/api/admin/AddOrUpdateProduct';
+import { toast } from 'react-toastify';
 
 const ProductManagement = () => {
   const [products, setProducts] = useState([]);
@@ -92,7 +93,7 @@ const ProductManagement = () => {
             : product
         );
         setProducts(updatedProducts);
-        alert(result.message);
+        toast.success(result.message);
       }
       //console.log("Updated product:", { id: currentProductId, ...formData });
 
@@ -105,7 +106,7 @@ const ProductManagement = () => {
       const result = await AddOrUpdateProduct(newProduct);
       if (result) {
         setProducts([...products, newProduct]);
-        alert(result.message);
+        toast.success(result.message);
       }
 
       //console.log("Added new product:", newProduct);

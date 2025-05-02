@@ -4,6 +4,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import GetOrderDetails from '../../utils/api/order/GetOrderDetails';
 import CancelOrder from '../../utils/api/order/CancelOrder';
 import OrderCard from './OrderCard';
+import { toast } from 'react-toastify';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -13,10 +14,10 @@ const Orders = () => {
   const loadOrderDetails = async () => {
     try {
       const response = await GetOrderDetails(user.id);
-      console.log(response);
+      //console.log(response);
       if (response) setOrders(response);
     } catch (err) {
-      console.error("Failed to load orders:", err);
+      toast.error("Failed to load orders:", err);
     }
   };
 
@@ -24,7 +25,7 @@ const Orders = () => {
     const response = await CancelOrder(id);
     if (response) {
       //console.log(response);
-      alert(response.data.message);
+      toast.success(response.data.message);
       loadOrderDetails(); // reload orders after cancellation
     }
   };

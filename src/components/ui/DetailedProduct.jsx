@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { IoMdArrowBack } from "react-icons/io";
 import { ReviewCard } from './ReviewCard';
 import AddOrUpdateCart from "../../utils/api/cart/AddOrUpdateCart";
+import { toast } from 'react-toastify';
 
 export const DetailedProduct = () => {
 
@@ -18,10 +19,10 @@ export const DetailedProduct = () => {
     if(user){
       const response = await AddOrUpdateCart(user.id, user.cartId, p.productId, quantity)
       if (response){
-          alert(response);
+          toast.success(response);
       }
     }else{
-      alert("Please Login !!")
+      toast.error("Please Login !!")
       navigate('/login')
     }
     

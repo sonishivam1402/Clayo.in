@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const AddOrUpdateUser = async (data) => {
 console.log(data);
@@ -9,14 +10,14 @@ console.log(data);
                 "Content-Type":"application/json"
             }
         });
-        console.log(response.data)
+        //console.log(response.data)
         return response.data;
     }catch(error){
         if(error.response.data){
             //console.log(error.response)
-            alert(error.response.data.message)
+            toast.error(error.response.data.message)
         }else{
-            alert(error.response.statusText + ", " + error.message);
+            toast.error(error.response.statusText + ", " + error.message);
         }
     }
 }

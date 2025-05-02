@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserById from '../utils/api/UserById';
 import AddOrUpdateUser from '../utils/api/AddOrUpdateUser';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -89,14 +90,14 @@ const Profile = () => {
       setIsModalOpen(false);
       setIsEditing(false);
       
-      alert("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
 
       }
       
       
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert("Failed to update profile. Please try again.");
+      toast.error("Failed to update profile. Please try again.");
     }
   };
 

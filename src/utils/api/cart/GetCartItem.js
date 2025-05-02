@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const GetCartItem = async (userId,cartId) => {
     const token = localStorage.getItem('authToken');
@@ -9,14 +10,14 @@ const GetCartItem = async (userId,cartId) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log(response);
+        //console.log(response);
         return response.data;
     }catch(error){
         if(error.response.data){
             //console.log(error.response)
-            alert(error.response.data[0].message)
+            toast.error(error.response.data[0].message)
         }else{
-            alert(error.response.statusText + ", " + error.message);
+            toast.error(error.response.statusText + ", " + error.message);
         }
     }
     

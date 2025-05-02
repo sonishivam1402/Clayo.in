@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FaEye, FaTrash, FaCheckCircle, FaBan } from "react-icons/fa";
 import GetAllUsers from '../../utils/api/admin/GetAllUsers';
 import UpdateUserAccess from '../../utils/api/admin/UpdateUserAccess';
+import { toast } from 'react-toastify';
 
 
 
@@ -23,7 +24,7 @@ const UserManagement = () => {
     //console.log(id);
     const response = await UpdateUserAccess(id);
     if(response){
-      alert(response.message);
+      toast.success(response.message);
       loadUser();
     }
   }

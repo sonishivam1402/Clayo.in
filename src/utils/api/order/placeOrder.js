@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const placeOrder = async (userId, email, cartId, cartItemIds) => {
     const token = localStorage.getItem('authToken');
@@ -13,9 +14,9 @@ const placeOrder = async (userId, email, cartId, cartItemIds) => {
     }catch(error){
         if(error.response.data){
             //console.log(error.response)
-            alert(error.response.data.message)
+            toast.error(error.response.data.message)
         }else{
-            alert(error.response.statusText + ", " + error.message);
+            toast.error(error.response.statusText + ", " + error.message);
         }
     }
     

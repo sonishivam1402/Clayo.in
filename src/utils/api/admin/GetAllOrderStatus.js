@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const GetAllOrderStatus = async () => {
     const token = localStorage.getItem('authToken');
@@ -9,15 +10,15 @@ const GetAllOrderStatus = async () => {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log(response.data);
+        //console.log(response.data);
         return response.data;
     }
     catch(err){
-        console.log(err);
+        //console.log(err);
         if(err.response.data){
-            alert(err.response.data);
+            toast.error(err.response.data);
         }else{
-            alert(err.message);
+            toast.error(err.message);
         }
     }
 }

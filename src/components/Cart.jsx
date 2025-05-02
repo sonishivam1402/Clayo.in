@@ -3,6 +3,8 @@ import { RxCross2 } from "react-icons/rx";
 import GetCartItem from "../utils/api/cart/GetCartItem";
 import DeleteCartItem from "../utils/api/cart/DeleteCartItem";
 import placeOrder from '../utils/api/order/placeOrder';
+import PageLoader from './ui/PageLoader';
+import { toast } from 'react-toastify';
 
 export const Cart = () => {
 
@@ -14,7 +16,7 @@ export const Cart = () => {
     const loadCart = async () => {
         const response = await GetCartItem(user.id, user.cartId);
         if (response) {
-            console.log(response);
+            //console.log(response);
             setCartItem(response);
         }
     }
@@ -41,7 +43,7 @@ export const Cart = () => {
 
             const response = await placeOrder(user.id, user.email, user.cartId, cartItemIds);
             if (response) {
-                alert("Order Placed Successfully");
+                toast.success("Order Placed Successfully");
                 const updatedCart = { ...cartItem };
                 let names = Array.from(checkboxes).map(cb => cb.value);
                 names.forEach((n) => delete updatedCart[n]); // Removes each product from cart
@@ -52,7 +54,7 @@ export const Cart = () => {
 
             }
         } else {
-            alert("No item selected");
+            toast.error("No item selected");
         }
         setLoading(false);
     };
@@ -60,7 +62,7 @@ export const Cart = () => {
     const handleDelete = async (index, id) => {
         console.log(id);
         const response = await DeleteCartItem(id);
-        alert(response);
+        toast.success(response);
 
         const updatedCart = { ...cartItem }; // Create a copy of cartItem
         delete updatedCart[index]; // Remove the specific item
@@ -72,7 +74,7 @@ export const Cart = () => {
         <>
             {Loading && (
                 <div className="fixed inset-0 bg-white-10 backdrop-blur-md bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="text-amber-800 text-xl">Processing your Order...</div>
+                    <PageLoader title="Processing your Order..."/>
                 </div>
             )}
 

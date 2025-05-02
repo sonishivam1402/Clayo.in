@@ -8,6 +8,7 @@ import { Banner } from "./Banner";
 import { Filter } from "./filter";
 import Product from "../../utils/api/Product";
 import AddOrUpdateCart from "../../utils/api/cart/AddOrUpdateCart";
+import { toast } from "react-toastify";
 
 export const ProductSection = ({ title, category }) => {
     const [products, setProducts] = useState([]);
@@ -58,10 +59,10 @@ export const ProductSection = ({ title, category }) => {
         if(user){
             const response = await AddOrUpdateCart(user.id, user.cartId, product.productId, quantity)
             if (response){
-                alert(response);
+                toast.success(response);
             }
         }else{
-            alert("Login To Proceed !!");
+            toast.error("Login To Proceed !!");
             navigate('/login');
         }
         

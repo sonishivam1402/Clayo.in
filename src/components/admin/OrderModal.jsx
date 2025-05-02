@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UpdateOrderStatus from '../../utils/api/admin/UpdateOrderStatus';
+import { toast } from 'react-toastify';
 
 const OrderModal = ({ isOpen, onClose, orderData, statusOptions }) => {
   //const [statusOptions, setStatusOptions] = useState([]);
@@ -20,7 +21,7 @@ const OrderModal = ({ isOpen, onClose, orderData, statusOptions }) => {
     const success = await UpdateOrderStatus(itemId, newStatus);
     if (success) {
       setActiveDropdownId(null);
-      alert(success.message);
+      toast.success(success.message);
       onClose();
       // if (onStatusUpdate) {
       //   onStatusUpdate(orderData.orderNumber, itemId, shippingId, newStatus);

@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const DeleteCartItem = async (cartId) => {
     const token = localStorage.getItem('authToken');
@@ -15,9 +16,9 @@ try{
 catch(error){
     if(error.response.data){
         //console.log(error.response)
-        alert(error.response.data.message)
+        toast.error(error.response.data.message)
     }else{
-        alert(error.response.statusText + ", " + error.message);
+        toast.error(error.response.statusText + ", " + error.message);
     }
 }  
 }
