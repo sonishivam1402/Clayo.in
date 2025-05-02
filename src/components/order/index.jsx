@@ -14,7 +14,7 @@ const Orders = () => {
   const loadOrderDetails = async () => {
     try {
       const response = await GetOrderDetails(user.id);
-      //console.log(response);
+      console.log(response);
       if (response) setOrders(response);
     } catch (err) {
       toast.error("Failed to load orders:", err);
@@ -25,7 +25,7 @@ const Orders = () => {
     const response = await CancelOrder(id);
     if (response) {
       //console.log(response);
-      toast.success(response.data.message);
+      toast.success(response.message);
       loadOrderDetails(); // reload orders after cancellation
     }
   };

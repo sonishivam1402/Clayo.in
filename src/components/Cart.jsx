@@ -27,7 +27,7 @@ export const Cart = () => {
     }, []);
 
     useEffect(() => {
-        console.log("Cart Updated !!")
+        //console.log("Cart Updated !!")
     }, [cartItem])
 
 
@@ -59,9 +59,9 @@ export const Cart = () => {
         setLoading(false);
     };
 
-    const handleDelete = async (index, id) => {
-        console.log(id);
-        const response = await DeleteCartItem(id);
+    const handleDelete = async (index, cartId, productId) => {
+        //console.log(id);
+        const response = await DeleteCartItem(cartId, productId);
         toast.success(response);
 
         const updatedCart = { ...cartItem }; // Create a copy of cartItem
@@ -99,7 +99,7 @@ export const Cart = () => {
                                     <span>Qty : {item.quantity}</span>
                                 </div>
                                 <div className="w-fit">
-                                    <RxCross2 onClick={() => handleDelete(key, item.cartId)} className="float-end cursor-pointer" />
+                                    <RxCross2 onClick={() => handleDelete(key, item.cartItemId, item.productId)} className="float-end cursor-pointer" />
                                 </div>
                             </div>
                         ))}

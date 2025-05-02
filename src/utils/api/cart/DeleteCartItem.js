@@ -2,10 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 
-const DeleteCartItem = async (cartId) => {
+const DeleteCartItem = async (cartId, productId) => {
+    console.log(cartId, productId);
     const token = localStorage.getItem('authToken');
 try{
-    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/cart/delete/${cartId}`,{
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/cart/delete/${cartId}/${productId}`,{
         headers: {
             Authorization: `Bearer ${token}`
         }

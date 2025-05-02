@@ -27,13 +27,13 @@ const OrderTracking = ({shipping, order}) => {
       <div className="w-full bg-gray-100 text-center">
 
         <div className='flex justify-between items-center p-3'>
-          <BiSolidPackage size={30} color={['Placed', 'Out for Delivery', 'Delivered'].includes(order.status) ? 'green' : 'black'} />
-          <MdLocalShipping size={30} color={['Out for Delivery', 'Delivered'].includes(order.status) ? 'green' : 'black'} />
-          <IoLocationSharp size={30} color={order.status === 'Delivered' ? 'green' : 'black'} />
+          <BiSolidPackage size={30} color={['Placed', 'Out for Delivery', 'Delivered'].includes(shipping.status) ? 'green' : 'black'} />
+          <MdLocalShipping size={30} color={['Out for Delivery', 'Delivered'].includes(shipping.status) ? 'green' : 'black'} />
+          <IoLocationSharp size={30} color={shipping.status === 'Delivered' ? 'green' : 'black'} />
         </div>
 
         <div className='bg-white h-1'>
-          <div className={`bg-green-600 h-1 ${progressWidth[order.status] || 'w-0'}`} />
+          <div className={`bg-green-600 h-1 ${progressWidth[shipping.status] || 'w-0'}`} />
         </div>
 
         <div className='flex justify-between text-xs mt-2'>

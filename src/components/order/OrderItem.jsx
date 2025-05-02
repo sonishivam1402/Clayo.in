@@ -16,8 +16,7 @@ const OrderItem = ({ item, order, orderItemKey, onCancel }) => {
             <div className='sm:w-1/2 flex flex-col'>
                 <div className="w-full sm:flex justify-start items-center gap-10">
                     <span className='font-medium'>#{order.orderNumber}</span>
-                    <span className={`hidden sm:block mt-1 w-fit px-2 py-1 text-white text-xs rounded-md ${item.status === 'Cancel' ? 'bg-red-500' : 'bg-green-500'
-                        }`}>
+                    <span className={`hidden sm:block mt-1 w-fit px-2 py-1 text-white text-xs rounded-md ${item.status === 'Cancel' ? 'bg-red-500' : 'bg-green-500'}`}>
                         {item.status}
                     </span>
                 </div>
