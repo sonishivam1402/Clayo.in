@@ -15,7 +15,7 @@ console.log(data);
     }catch(error){
         if(error.response.data){
             //console.log(error.response)
-            toast.error(error.response.data.message)
+            toast.error(error.response.data)
         }else{
             toast.error(error.response.statusText + ", " + error.message);
         }

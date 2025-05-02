@@ -28,6 +28,8 @@ import OrderManagement from "./components/admin/OrderManagement";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageNotFound from "./components/PageNotFound";
+import OtpVerification from "./components/OtpVerification";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 function App() {
   return (
@@ -35,6 +37,7 @@ function App() {
     
     <GlobalContextProvider>
       <BrowserRouter>
+      <ScrollToTop/>
         <NavBar />
 
         {/* Define Routes */}
@@ -85,6 +88,7 @@ function App() {
           <Route path="/order" element={<Orders />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<PageNotFound/>} />
+          <Route path="/otp" element={<OtpVerification/>} />
         </Routes>
 
         <Footer />

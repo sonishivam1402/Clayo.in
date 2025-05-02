@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import VerifyOtp from '../utils/api/VerifyOtp';
 import { toast } from 'react-toastify';
+import { IoMdArrowBack } from "react-icons/io";
 
 const OtpVerification = ({user, onClose}) => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -59,6 +60,7 @@ const OtpVerification = ({user, onClose}) => {
 
   return (
     <div className="min-h-screen w-screen flex items-center justify-center bg-white-10 backdrop-blur-md px-6 py-12">
+      <IoMdArrowBack size={24} className='hidden absolute left-10 top-10 sm:block sm:hover:bg-amber-800 sm:rounded-2xl sm:hover:text-white sm:hover:cursor-pointer' onClick={() => { navigate(-1) }} />
       <div className="bg-white shadow-lg rounded-2xl p-10 max-w-lg w-full">
         <h3 className="text-1xl font-bold text-center text-amber-800 mb-4">Hey, {user.name} !!</h3>
         <h1 className="text-3xl font-bold text-center text-amber-800 mb-4">Verify Your OTP</h1>

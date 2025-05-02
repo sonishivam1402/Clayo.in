@@ -32,18 +32,28 @@ export const Signup = () => {
   };
 
   const handleSignup = async (e) => {
-    setLoading(true);
     e.preventDefault();
-    const result = await AddOrUpdateUser(formData)
-
-    if (result) {
+    setLoading(true);
+  
+    try {
+      const result = await AddOrUpdateUser(formData);
+      //console.log(result);
+      if (result?.message) {
+        toast.success(result.message || "Signup successful!");
+        setOtpUser({ ...formData, id: result?.data?.id });
+        SetOtpModal(true);
+      } else {
+        // API returned failure
+        toast.error(result?.data || "Signup failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Signup Error:", error);
+      toast.error("Something went wrong. Please check your internet and try again.");
+    } finally {
       setLoading(false);
-      toast.success(result.message);
-      setOtpUser({ ...formData, id: result.id });
-      SetOtpModal(true);
     }
-    
-  }
+  };
+  
 
   return (
     <>
