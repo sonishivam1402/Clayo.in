@@ -27,6 +27,7 @@ import OrderManagement from "./components/admin/OrderManagement";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/order" element={<Orders />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="*" element={<PageNotFound/>} />
         </Routes>
 
         <Footer />
