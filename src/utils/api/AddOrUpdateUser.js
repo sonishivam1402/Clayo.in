@@ -3,7 +3,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const AddOrUpdateUser = async (data) => {
-console.log(data);
     try{
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/User/AddOrUpdateUser`,data,{
             headers:{

@@ -13,7 +13,7 @@ const Orders = () => {
 
   const loadOrderDetails = async () => {
     try {
-      const response = await GetOrderDetails(user.id);
+      const response = await GetOrderDetails(user.userId);
       console.log(response);
       if (response) setOrders(response);
     } catch (err) {

@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { FaUserCircle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Logout from '../utils/api/Logout';
+import { toast } from 'react-toastify';
 
 export const UserProfile = (props) => {
 
     const [active, setActive] = useState(false)
+    const navigate = useNavigate();
 
     const options = [
         { id: 1, name: "Profile" , to:"/profile"},
@@ -15,9 +18,21 @@ export const UserProfile = (props) => {
 
 
     const handleClick = () => {
-        active ? setActive(false) : setActive(true);
-        
+        active ? setActive(false) : setActive(true);    
     }
+    
+    const handleLogout = async() => {
+        console.log("logout");
+        const response = await Logout();
+        if(response){
+            toast.success(response.message);
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            localStorage.removeItem("refreshToken");
+            navigate("/login");
+        }
+    }
+
 
     return (
         <div>
@@ -29,7 +44,7 @@ export const UserProfile = (props) => {
             {active ? (
                 <div className='w-30 h-fit p-3 absolute top-16 right-6 text-left bg-white text-black border-1 rounded-2xl '>
                     <ul>
-                        {options.map((option) => { return <Link key={option.id} to={option.to}><li  className='p-1 hover:text-amber-900' onClick={()=>{handleClick(),option.name=="Logout"?localStorage.removeItem("user"):""}}>{option.name}</li></Link> })}
+                        {options.map((option) => { return <Link key={option.id} to={option.to}><li  className='p-1 hover:text-amber-900' onClick={()=>{handleClick(),option.name=="Logout"?handleLogout():""}}>{option.name}</li></Link> })}
                     </ul>
                 </div>
             ) : (

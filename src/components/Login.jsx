@@ -25,6 +25,9 @@ export const Login = () => {
       if(user.token){
         localStorage.setItem('authToken', user.token);
       }
+      if(user.refreshToken){
+        localStorage.setItem('refreshToken', user.refreshToken);
+      }
       navigate("/");
     }
   }

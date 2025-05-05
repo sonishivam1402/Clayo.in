@@ -14,7 +14,7 @@ export const Cart = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     const loadCart = async () => {
-        const response = await GetCartItem(user.id, user.cartId);
+        const response = await GetCartItem(user.userId, user.cartId);
         if (response) {
             //console.log(response);
             setCartItem(response);
@@ -41,7 +41,7 @@ export const Cart = () => {
             let cartItemIds = ids.toString();
             console.log("final ids : ", cartItemIds)
 
-            const response = await placeOrder(user.id, user.email, user.cartId, cartItemIds);
+            const response = await placeOrder(user.userId, user.email, user.cartId, cartItemIds);
             if (response) {
                 toast.success("Order Placed Successfully");
                 const updatedCart = { ...cartItem };

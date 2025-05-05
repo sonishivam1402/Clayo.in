@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 const LoginAuth = async (email, password) => {
 
     try{
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/User/Login`,{email,password});
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Auth/login`,{email,password});
         //console.log("Login Successfull",response)
         return response.data;
     }catch(error){

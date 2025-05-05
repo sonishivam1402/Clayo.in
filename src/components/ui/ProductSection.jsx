@@ -57,7 +57,7 @@ export const ProductSection = ({ title, category }) => {
 
     const addToCart = async (quantity, product) => {
         if(user){
-            const response = await AddOrUpdateCart(user.id, user.cartId, product.productId, quantity)
+            const response = await AddOrUpdateCart(user.userId, user.cartId, product.productId, quantity)
             if (response){
                 toast.success(response);
             }
