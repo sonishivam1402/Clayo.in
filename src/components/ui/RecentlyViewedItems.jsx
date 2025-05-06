@@ -63,11 +63,11 @@ const RecentlyViewedItems = () => {
   }
 
   return (
-    <div className="w-screen mt-6 px-2">
+    <div className="w-screen mt-6">
       <h2 className="text-xl font-bold mb-4 text-amber-800">Recently Viewed</h2>
       
       {/* Scrollable container for cards */}
-      <div className="flex overflow-x-auto space-x-4 pb-6 scrollbar-thin">
+      <div className="flex overflow-x-auto space-x-4 p-4 scrollbar-thin">
         {Object.entries(recentItems).map(([key, item]) => (
           <div 
             key={key}

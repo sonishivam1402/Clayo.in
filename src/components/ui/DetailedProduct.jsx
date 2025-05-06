@@ -10,46 +10,84 @@ export const DetailedProduct = () => {
 
   const location = useLocation();
   const p = location.state || {};
-  
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+  const [isZooming, setIsZooming] = useState(false);
+  const [bgPos, setBgPos] = useState('50% 50%');
 
-  useEffect(()=>{
-    if(user != null && p != null){
+
+
+  useEffect(() => {
+    if (user != null && p != null) {
       console.log("call");
       setRecentlyVisitedItem();
-    } 
-  },[])
+    }
+  }, [])
 
-  const setRecentlyVisitedItem = async () =>{
+  const setRecentlyVisitedItem = async () => {
     const response = await SetRecentlyViewedItem(user.userId, p.productId);
-    if(response){
-      console.log("set : ",response);
+    if (response) {
+      console.log("set : ", response);
     }
   }
 
   const addToCart = async () => {
-    if(user){
+    if (user) {
       const response = await AddOrUpdateCart(user.userId, user.cartId, p.productId, quantity)
-      if (response){
-          toast.success(response);
+      if (response) {
+        toast.success(response);
       }
-    }else{
+    } else {
       toast.error("Please Login !!")
       navigate('/login')
     }
-    
-};
+
+  };
+
+  const handleZoom = (e) => {
+    const { left, top, width, height } = e.target.getBoundingClientRect();
+    const x = ((e.pageX - left) / width) * 100;
+    const y = ((e.pageY - top) / height) * 100;
+    setBgPos(`${x}% ${y}%`);
+  };
+
+
 
   return (
     <>
       <div className='w-screen h-300 sm:h-screen flex flex-col md:flex-row justify-center items-center  p-6'>
         <IoMdArrowBack size={24} className='hidden sm:block sm:hover:bg-amber-800 sm:rounded-2xl sm:hover:text-white sm:hover:cursor-pointer' onClick={() => { navigate(-1) }} />
-        <div className="p-6 w-full md:w-1/2 flex justify-center items-center ">
-          <img src={p.image} alt="Product" className='w-90 h-110' />
+        <div className="p-6 w-full md:w-1/2 flex justify-center items-center relative">
+
+          {/* Original Image */}
+          <img
+            src={p.image}
+            alt="Product"
+            className="w-90 h-110"
+            onMouseEnter={() => setIsZooming(true)}
+            onMouseLeave={() => setIsZooming(false)}
+            onMouseMove={handleZoom}
+          />
+
+          {/* Zoom Pane */}
+          {isZooming && (
+            <div
+                className="hidden md:block absolute top-[-25%] left-[-5%] w-[300px] h-[300px] border-2 border-amber-800 rounded-full bg-no-repeat bg-cover z-20"
+              style={{
+                backgroundImage: `url(${p.image})`,
+                backgroundSize: '200%',
+                backgroundPosition: bgPos,
+              }}
+            ></div>
+          )}
+
         </div>
+
+
+
 
         <div className="w-full h-fit md:w-1/2 p-6 flex flex-col space-y-4 text-amber-800 rounded-lg text-left gap-1">
 
@@ -65,7 +103,7 @@ export const DetailedProduct = () => {
 
           <div className="flex items-center space-x-4">
             <span className="font-medium text-gray-700">Quantity:</span>
-            <input type="number" min="1" className="w-16 p-2 border border-gray-300 rounded" value={quantity} onChange={(e)=>setQuantity(e.target.value)}/>
+            <input type="number" min="1" className="w-16 p-2 border border-gray-300 rounded" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
           </div>
 
 
