@@ -1,15 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import axiosInstance from '../axiosInstance';
 
 const placeOrder = async (userId, email, cartId, cartItemIds) => {
-    const token = localStorage.getItem('authToken');
     try{
-        const response  = await axios.post(`${import.meta.env.VITE_API_URL}/Order/PlaceOrder`,{userId, email, cartId, cartItemIds},{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+        const response  = await axiosInstance.post(`/Order/PlaceOrder`,{userId, email, cartId, cartItemIds});
         return response;
     }catch(error){
         if(error.response.data){

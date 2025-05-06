@@ -1,15 +1,11 @@
 import React from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import axiosInstance from '../axiosInstance';
 
 const GetAllOrderStatus = async () => {
-    const token = localStorage.getItem('authToken');
     try{
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/Admin/getAllOrderStatus`,{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+        const response = await axiosInstance.get(`/Admin/getAllOrderStatus`);
         //console.log(response.data);
         return response.data;
     }

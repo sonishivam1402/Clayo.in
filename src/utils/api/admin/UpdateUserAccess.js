@@ -1,16 +1,11 @@
 import React from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import axiosInstance from '../axiosInstance';
 
 const UpdateUserAccess = async (userId) => {
-    //console.log(userId);
-    const token = localStorage.getItem('authToken');
     try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Admin/updateUserAccess/${userId}`, null,{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
+        const response = await axiosInstance.post(`/Admin/updateUserAccess/${userId}`, null)
         //console.log(response.data)
         return response.data;
     }

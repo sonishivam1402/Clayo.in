@@ -42,7 +42,7 @@ axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-
+        console.log(originalRequest);
         if (error.response && error.response.status === 401 && !originalRequest._retry) {
             if (isRefreshing) {
                 return new Promise(function (resolve, reject) {
@@ -62,8 +62,9 @@ axiosInstance.interceptors.response.use(
 
             try {
                 const refreshToken = localStorage.getItem('refreshToken');
-                const response = await axios.post(`${baseURL}/Auth/refresh`, { refreshToken });
-
+                const accessToken = localStorage.getItem('authToken');
+                const response = await axios.post(`${baseURL}/Auth/refresh`, {accessToken, refreshToken });
+                console.log("Refresh Token : ",response);
                 const newToken = response.data.token;
                 localStorage.setItem('authToken', newToken);
                 localStorage.setItem('refreshToken', response.data.refreshToken);
@@ -75,6 +76,7 @@ axiosInstance.interceptors.response.use(
 
             } catch (err) {
                 processQueue(err, null);
+                localStorage.removeItem('user');
                 localStorage.removeItem('authToken');
                 localStorage.removeItem('refreshToken');
                 toast.error('Session expired. Please login again.');

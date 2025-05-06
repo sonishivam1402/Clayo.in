@@ -1,16 +1,13 @@
 import React from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import axiosInstance from '../axiosInstance';
 
 const CancelOrder = async (orderId) => {
-    const token = localStorage.getItem('authToken');
     try{
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/order/CancelOrder`,{
+        const response = await axiosInstance.delete(`/order/CancelOrder`,{
             params:{
                 orderId
-            },
-            headers: {
-                Authorization: `Bearer ${token}`
             }
         })
         //console.log(response)

@@ -1,16 +1,13 @@
 import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import axiosInstance from '../axiosInstance';
 
 const GetOrderDetails = async (userId) => {
-  const token = localStorage.getItem('authToken');
   try {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/Order/GetOrderDetails`,{
+    const response = await axiosInstance.get(`/Order/GetOrderDetails`,{
       params: {
         userId 
-      },
-      headers: {
-        Authorization: `Bearer ${token}`
       }
     });
     if (response) {

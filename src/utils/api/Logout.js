@@ -5,11 +5,12 @@ const Logout = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const userId = user.userId;
     const refreshToken = localStorage.getItem('refreshToken');
+    console.log("refresh token : ", refreshToken);
     try{
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/Auth/logout`,{userId,refreshToken});
         return response.data;
     }catch(error){
-        console.log(error);
+        console.log("logout api : ",error);
         if(error.response.data){
             toast.error(error.response.data.message)
         }else{
