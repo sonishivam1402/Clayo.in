@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IoMdArrowBack } from "react-icons/io";
 import { ReviewCard } from './ReviewCard';
 import AddOrUpdateCart from "../../utils/api/cart/AddOrUpdateCart";
 import { toast } from 'react-toastify';
+import SetRecentlyViewedItem from '../../utils/api/SetRecentlyViewedItem';
 
 export const DetailedProduct = () => {
 
@@ -15,9 +16,23 @@ export const DetailedProduct = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
 
+  useEffect(()=>{
+    if(user != null && p != null){
+      console.log("call");
+      setRecentlyVisitedItem();
+    } 
+  },[])
+
+  const setRecentlyVisitedItem = async () =>{
+    const response = await SetRecentlyViewedItem(user.userId, p.productId);
+    if(response){
+      console.log("set : ",response);
+    }
+  }
+
   const addToCart = async () => {
     if(user){
-      const response = await AddOrUpdateCart(user.id, user.cartId, p.productId, quantity)
+      const response = await AddOrUpdateCart(user.userId, user.cartId, p.productId, quantity)
       if (response){
           toast.success(response);
       }
@@ -55,7 +70,7 @@ export const DetailedProduct = () => {
 
 
 
-          <button className="mt-4! px-6! py-3! border-2! border-amber-800! hover:bg-amber-800!" onClick={addToCart}>Add to Cart</button>
+          <button className="mt-4 px-6 py-3 border-2 border-amber-800 hover:text-white hover:bg-amber-800" onClick={addToCart}>Add to Cart</button>
         </div>
       </div>
       <div className='w-screen flex gap-2 overflow-x-scroll overflow-y-hidden hide-scrollbar '>

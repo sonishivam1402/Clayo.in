@@ -2,6 +2,7 @@ import React from 'react'
 import { Banner } from './ui/Banner'
 import { GridBanner } from './GridBanner'
 import { useNavigate } from 'react-router-dom'
+import RecentlyViewedItems from './ui/RecentlyViewedItems'
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export const Hero = () => {
       </div>
 
       <Banner href="/new-arrivals" src="2.jpg" />
+      <RecentlyViewedItems/>
       <GridBanner />
       <Banner href="/" src="1.png" />
     </>
