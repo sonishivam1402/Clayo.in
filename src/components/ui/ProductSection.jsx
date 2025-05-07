@@ -9,27 +9,30 @@ import { Filter } from "./filter";
 import Product from "../../utils/api/Product";
 import AddOrUpdateCart from "../../utils/api/cart/AddOrUpdateCart";
 import { toast } from "react-toastify";
+import { FaSearch } from "react-icons/fa";
 
 export const ProductSection = ({ title, category }) => {
     const [products, setProducts] = useState([]);
+    const [originalProducts, setOriginalProducts] = useState([]);
     const [quantities, setQuantities] = useState({});
     const [tempCart, setTempCart] = useState([]);
     const [filterVisible, setFilterVisible] = useState(false);
     const navigate = useNavigate();
     const { setCartItem } = useContext(GlobalContext);
+    const [searchText, SetSearchText] = useState("")
 
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
         const loadProducts = async () => {
             try {
-                 // fetching data from sql
+                // fetching data from sql
                 const data = await Product();
 
                 if (data) {
                     const filterData = `${category}` ? data.filter((d) => { return d.category == `${category}` }) : data
                     setProducts(filterData);
-
+                    setOriginalProducts(filterData);
                     // initializing default quantities to zero for add to cart option , and it is mapped with product id
                     const initialQuantities = data.reduce((acc, product) => {
                         acc[product.productId] = 0;
@@ -38,7 +41,7 @@ export const ProductSection = ({ title, category }) => {
                     setQuantities(initialQuantities);
                 }
 
-            } 
+            }
             catch (error) {
                 console.error("Error fetching products:", error);
             }
@@ -56,17 +59,25 @@ export const ProductSection = ({ title, category }) => {
     };
 
     const addToCart = async (quantity, product) => {
-        if(user){
+        if (user) {
             const response = await AddOrUpdateCart(user.userId, user.cartId, product.productId, quantity)
-            if (response){
+            if (response) {
                 toast.success(response);
             }
-        }else{
+        } else {
             toast.error("Login To Proceed !!");
             navigate('/login');
         }
-        
+
     };
+
+    const handleSearch = (value) => {
+        SetSearchText(value);
+        const filterData = value
+            ? originalProducts.filter((d) => d.title.toLowerCase().includes(value.toLowerCase()))
+            : originalProducts;
+        setProducts(filterData);
+    }
 
     return (
         <div>
@@ -75,7 +86,7 @@ export const ProductSection = ({ title, category }) => {
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-4 relative">
                         <span className="text-3xl font-bold text-amber-700">{title}</span>
-                        {!category && (
+                        {/* {!category && (
                             <>
                                 <LuFilter className="text-amber-800 cursor-pointer" size={24} onClick={() => setFilterVisible(true)} />
                                 {filterVisible && (
@@ -84,7 +95,15 @@ export const ProductSection = ({ title, category }) => {
                                     </div>
                                 )}
                             </>
-                        )}
+                        )} */}
+                        <div className="p-2 w-80 border-2 border-amber-800 rounded-2xl flex items-center gap-3">
+                            <FaSearch className="text-amber-800" />
+                            <input type="text" value={searchText}
+                                placeholder="Search Name..."
+                                className="w-full text-amber-800 border-none outline-none focus:ring-0 focus:border-transparent"
+                                onChange={(e) => handleSearch(e.target.value)}
+                            />
+                        </div>
                     </div>
                     <FaChevronRight
                         onClick={() => document.getElementById('product-container').scrollBy({ left: 250, behavior: "smooth" })}
