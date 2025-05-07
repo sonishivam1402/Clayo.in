@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IoMdArrowBack } from "react-icons/io";
 import { ReviewCard } from './ReviewCard';
@@ -15,8 +15,11 @@ export const DetailedProduct = () => {
 
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+
+  const imgRef = useRef(null);
   const [isZooming, setIsZooming] = useState(false);
-  const [bgPos, setBgPos] = useState('50% 50%');
+  const [bgPos, setBgPos] = useState('0% 0%');
+  const [lensPos, setLensPos] = useState({ top: 0, left: 0 });
 
 
 
@@ -48,11 +51,34 @@ export const DetailedProduct = () => {
   };
 
   const handleZoom = (e) => {
-    const { left, top, width, height } = e.target.getBoundingClientRect();
-    const x = ((e.pageX - left) / width) * 100;
-    const y = ((e.pageY - top) / height) * 100;
-    setBgPos(`${x}% ${y}%`);
+    const { left, top, width, height } = imgRef.current.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+
+    // Clamp x and y inside image bounds
+    const xClamped = Math.max(0, Math.min(x, width));
+    const yClamped = Math.max(0, Math.min(y, height));
+
+    // Center cursor in zoom background
+    const xPercent = (xClamped / width) * 100;
+    const yPercent = (yClamped / height) * 100;
+    setBgPos(`${xPercent}% ${yPercent}%`);
+
+    // Lens Size (you can adjust this)
+    const lensSize = 150;
+
+    // Correct lens position to center cursor
+    let lensLeft = xClamped - lensSize / 2;
+    let lensTop = yClamped - lensSize / 2;
+
+    // Clamp lens to stay inside image
+    lensLeft = Math.max(0, Math.min(lensLeft, width - lensSize));
+    lensTop = Math.max(0, Math.min(lensTop, height - lensSize));
+
+    setLensPos({ top: lensTop, left: lensLeft+200 });
   };
+
+
 
 
 
@@ -62,20 +88,34 @@ export const DetailedProduct = () => {
         <IoMdArrowBack size={24} className='hidden sm:block sm:hover:bg-amber-800 sm:rounded-2xl sm:hover:text-white sm:hover:cursor-pointer' onClick={() => { navigate(-1) }} />
         <div className="p-6 w-full md:w-1/2 flex justify-center items-center relative">
 
-          {/* Original Image */}
           <img
             src={p.image}
             alt="Product"
-            className="w-90 h-110"
+            className="w-90 h-110 hover:cursor-zoom-in"
             onMouseEnter={() => setIsZooming(true)}
             onMouseLeave={() => setIsZooming(false)}
             onMouseMove={handleZoom}
+            ref={imgRef}  // Make sure you have this ref defined
           />
 
-          {/* Zoom Pane */}
           {isZooming && (
             <div
-                className="hidden md:block absolute top-[-25%] left-[-5%] w-[300px] h-[300px] border-2 border-amber-800 rounded-full bg-no-repeat bg-cover z-20"
+              className="absolute border-2 border-amber-800 bg-transparent bg-opacity-20 pointer-events-none z-30 rounded-full"
+              style={{
+                width: '150px', 
+                height: '150px',
+                top: lensPos.top,
+                left: lensPos.left,
+              }}
+            ></div>
+          )}
+
+
+
+          {/* 🔥 ZOOMED VIEW */}
+          {isZooming && (
+            <div
+              className="hidden md:block absolute top-[0%] left-[100%] w-[700px] h-[500px] border-2 border-amber-800 rounded-xl bg-no-repeat bg-cover z-20"
               style={{
                 backgroundImage: `url(${p.image})`,
                 backgroundSize: '200%',
@@ -85,6 +125,7 @@ export const DetailedProduct = () => {
           )}
 
         </div>
+
 
 
 
