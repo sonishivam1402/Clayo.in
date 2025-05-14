@@ -3,9 +3,9 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import axiosInstance from '../axiosInstance';
 
-const AddOrUpdateCart = async (userId,cartId,productId,quantity) => {
+const AddOrUpdateCart = async (cartId,productId,quantity) => {
     try{
-        const response  = await axiosInstance.post(`/Cart/addOrUpdate`,{userId, cartId, productId, quantity});
+        const response  = await axiosInstance.post(`/Cart/addOrUpdate`,{cartId, productId, quantity});
         //console.log(response.data);
         return response.data;
     }catch(error){

@@ -3,9 +3,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
 
-const UserById = async (id) => {
+const UserById = async () => {
     try {
-        const response = await axiosInstance.post(`/User/Id/${id}`,null)
+        const response = await axiosInstance.post(`/User/Id`,null)
         //console.log(response)
         if(response){
             return response.data;

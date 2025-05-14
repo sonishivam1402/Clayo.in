@@ -19,7 +19,7 @@ const RecentlyViewedItems = () => {
         if (!userStr) return;
 
         const user = JSON.parse(userStr);
-        const result = await GetRecentlyViewedItems(user.userId);
+        const result = await GetRecentlyViewedItems();
 
         if (result) {
           //console.log("Recently viewed items:", result);

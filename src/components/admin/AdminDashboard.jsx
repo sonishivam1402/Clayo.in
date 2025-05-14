@@ -14,7 +14,7 @@ const AdminDashboard = () => {
   const [topSelling, setTopSelling] = useState("");
 
   const loadData = async () => {
-    const result = await GetDashboardData(user.userId, user.roleId);
+    const result = await GetDashboardData();
     setData(result.data);
     setRecentOrder(result.data.recentOrders);
     setTopSelling(result.data.mostOrderedProducts)

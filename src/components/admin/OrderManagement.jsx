@@ -100,7 +100,7 @@ const OrderManagement = () => {
                 </td>
                 <td className="px-6 py-4">
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    order.status === 'Shipped' ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-orange-600'
+                    order.status === 'Cancel' ? 'bg-red-200 text-red-600' : order.status === 'Placed' ? 'bg-yellow-100 text-yellow-700' :'bg-green-200 text-green-600'
                   }`}>
                     {order.status}
                   </span>

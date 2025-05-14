@@ -7,6 +7,7 @@ import DeleteCartItem from "../utils/api/cart/DeleteCartItem";
 import placeOrder from '../utils/api/order/placeOrder';
 import PageLoader from './ui/PageLoader';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const Cart = () => {
     const [cartItems, setCartItems] = useState({});
@@ -14,9 +15,10 @@ export const Cart = () => {
     const [selectedItems, setSelectedItems] = useState({});
 
     const user = JSON.parse(localStorage.getItem("user"));
+    const navigate = useNavigate();
 
     const loadCart = async () => {
-        const response = await GetCartItem(user.userId, user.cartId);
+        const response = await GetCartItem(user.cartId);
         if (response) {
             setCartItems(response);
             // Initialize all items as selected by default
@@ -67,7 +69,7 @@ export const Cart = () => {
             const cartItemIds = selectedCartItemIds.toString();
 
             try {
-                const response = await placeOrder(user.userId, user.email, user.cartId, cartItemIds);
+                const response = await placeOrder(user.email, user.cartId, cartItemIds);
                 if (response) {
                     toast.success("Order placed successfully");
 
@@ -95,22 +97,29 @@ export const Cart = () => {
         setLoading(false);
     };
 
-    const handleDelete = async (index, cartId, productId) => {
+    const handleDelete = async (index, cartItemId, productId) => {
         try {
-            const response = await DeleteCartItem(cartId, productId);
+            const response = await DeleteCartItem(user.cartId, cartItemId, productId);
             toast.success(response);
 
-            const updatedCart = { ...cartItems };
-            delete updatedCart[index];
-            setCartItems(updatedCart);
+            try {
+                const updatedCart = { ...cartItems };
+                delete updatedCart[index];
+                setCartItems(updatedCart);
 
-            // Also update selected items
-            const updatedSelected = { ...selectedItems };
-            delete updatedSelected[cartId];
-            setSelectedItems(updatedSelected);
+                const updatedSelected = { ...selectedItems };
+                delete updatedSelected[cartItemId]; 
+                setSelectedItems(updatedSelected);
+            } catch (stateError) {
+                console.error("State update error:", stateError);
+                toast.error("State update failed");
+            }
+
         } catch (error) {
+            console.error("DeleteCartItem error:", error);
             toast.error("Failed to remove item");
         }
+
     };
 
     const handleQuantityChange = (key, newQuantity) => {
@@ -241,7 +250,7 @@ export const Cart = () => {
                             <h2 className="mt-4 text-lg font-medium text-amber-900">Your shopping bag is empty</h2>
                             <p className="mt-2 text-sm text-amber-700">Browse our collection to find something you'll love.</p>
                             <div className="mt-6">
-                                <button className="inline-flex items-center px-6 py-3 border border-amber-700 text-sm font-medium rounded-md text-amber-700 bg-white hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-700">
+                                <button onClick={() => navigate("/new-arrivals")} className="inline-flex items-center px-6 py-3 border border-amber-700 text-sm font-medium rounded-md text-amber-700 bg-white hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-700">
                                     Continue Shopping
                                 </button>
                             </div>

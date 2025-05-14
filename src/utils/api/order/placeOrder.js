@@ -3,9 +3,9 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import axiosInstance from '../axiosInstance';
 
-const placeOrder = async (userId, email, cartId, cartItemIds) => {
+const placeOrder = async (email, cartId, cartItemIds) => {
     try{
-        const response  = await axiosInstance.post(`/Order/PlaceOrder`,{userId, email, cartId, cartItemIds});
+        const response  = await axiosInstance.post(`/Order/PlaceOrder`,{email, cartId, cartItemIds});
         return response;
     }catch(error){
         if(error.response.data){

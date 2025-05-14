@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const LoginAuth = async (email, password) => {
-
-    try{
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Auth/login`,{email,password});
+    try {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Auth/login`, { email, password });
         //console.log("Login Successfull",response)
         return response.data;
-    }catch(error){
-        if(error.response.data){
-            //console.log(error.response)
-            toast.error(error.response.data.message)
-        }else{
+    } catch (error) {
+        if (error.response.data) {
+            if (error.response.data.message == 'Please Verify Yourself.') {
+                return error.response.data.message;
+            } else {
+                toast.error(error.response.data.message)
+            }
+
+        } else {
             toast.error(error.response.statusText + ", " + error.message);
         }
     }

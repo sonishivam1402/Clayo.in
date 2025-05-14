@@ -3,9 +3,9 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import axiosInstance from '../axiosInstance';
 
-const DeleteCartItem = async (cartId, productId) => {
+const DeleteCartItem = async (cartId, cartItemId, productId) => {
 try{
-    const response = await axiosInstance.delete(`/cart/delete/${cartId}/${productId}`)
+    const response = await axiosInstance.delete(`/cart/delete/${cartId}/${cartItemId}/${productId}`)
     //console.log(response)
     return response.data;
 }

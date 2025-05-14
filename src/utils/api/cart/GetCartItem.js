@@ -3,9 +3,9 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import axiosInstance from '../axiosInstance';
 
-const GetCartItem = async (userId,cartId) => {
+const GetCartItem = async (cartId) => {
     try{
-        const response = await axiosInstance.get(`/cart/${userId}/${cartId}`);
+        const response = await axiosInstance.get(`/cart/${cartId}`);
         //console.log(response);
         return response.data;
     }catch(error){

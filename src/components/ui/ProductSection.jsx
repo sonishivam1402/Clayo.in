@@ -70,7 +70,7 @@ export const ProductSection = ({ title, category }) => {
         
         if (user) {
             try {
-                const response = await AddOrUpdateCart(user.userId, user.cartId, product.productId, quantity);
+                const response = await AddOrUpdateCart(user.cartId, product.productId, quantity);
                 if (response) {
                     toast.success(response);
                     // Reset quantity after adding to cart
@@ -189,7 +189,7 @@ export const ProductSection = ({ title, category }) => {
                     {/* Product Display Section */}
                     <div className="relative">
                         {/* Navigation Controls */}
-                        <div className="absolute top-1/2 -left-4 -translate-y-1/2 hidden lg:block">
+                        <div className="absolute top-1/2 -left-4 -translate-y-1/2 hidden lg:block z-50">
                             <button 
                                 onClick={() => scrollProducts('left')}
                                 className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 border border-gray-200"
@@ -198,12 +198,12 @@ export const ProductSection = ({ title, category }) => {
                             </button>
                         </div>
                         
-                        <div className="absolute top-1/2 -right-4 -translate-y-1/2 hidden lg:block">
+                        <div className="absolute top-1/2 -right-4 -translate-y-1/2 hidden lg:block z-50">
                             <button 
                                 onClick={() => scrollProducts('right')}
                                 className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 border border-gray-200"
                             >
-                                <FaChevronRight size={20} className="z-500!"/>
+                                <FaChevronRight size={20}/>
                             </button>
                         </div>
                         

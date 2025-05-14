@@ -3,9 +3,9 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import axiosInstance from '../axiosInstance';
 
-const GetDashboardData = async (id, roleId) => {
+const GetDashboardData = async () => {
     try{
-        const response = await axiosInstance.get(`/Admin/dashboard/${id}/${roleId}`);
+        const response = await axiosInstance.get(`/Admin/dashboard`);
         //console.log(response.data);
         return response.data;
     }

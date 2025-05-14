@@ -3,9 +3,10 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
 
-const GetRecentlyViewedItems = async (userId) => {
+const GetRecentlyViewedItems = async () => {
+
     try {
-        const response = await axiosInstance.get(`/RecentlyViewed/get/${userId}`);
+        const response = await axiosInstance.get(`/RecentlyViewed/get`);
         return response.data;
     } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {

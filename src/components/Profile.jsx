@@ -23,7 +23,7 @@ const Profile = () => {
   const [imagePreview, setImagePreview] = useState('');
 
   const loadUserDetails = async () => {
-    const result = await UserById(user.userId);
+    const result = await UserById();
     if (result) {
       setUserData(result);
       // Initialize form data with user data
