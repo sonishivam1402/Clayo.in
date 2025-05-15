@@ -11,6 +11,9 @@ const GetAllUsers = async () => {
     }
     catch (err) {
         //console.log(err);
+        if(err.response.status == 401){
+            return err.response.status;
+        }
         if(err.response.data){
             toast.error(err.response.data);
         }else{

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { MdCancel, MdRemoveRedEye } from "react-icons/md";
 import { FaTruck } from "react-icons/fa";
-import GetOrderDetails from '../../utils/api/order/GetOrderDetails';
+import GetAllOrderDetails from '../../utils/api/admin/GetAllOrderDetails';
 import dayjs from 'dayjs';
 import OrderModal from './OrderModal';
 import GetAllOrderStatus from '../../utils/api/admin/GetAllOrderStatus';
+import { useNavigate } from 'react-router-dom';
 
 // const orders = [
 //   {
@@ -31,6 +32,7 @@ const OrderManagement = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [statusOptions, setStatusOptions] = useState([]);
+  const navigate = useNavigate();
 
   const openModal = (order) => {
     setSelectedOrder(order);
@@ -39,11 +41,12 @@ const OrderManagement = () => {
 
   const loadOrderDetails = async () => {
     try {
-      const response = await GetOrderDetails();
-      console.log(response);
-      if (response) setOrders(response);
+      const response = await GetAllOrderDetails();
+      if (response == 401) {
+          navigate("/unauthorized")
+      } else {setOrders(response)};
     } catch (err) {
-      console.error("Failed to load orders:", err);
+      toast.error("Failed to load orders:", err);
     }
   };
 

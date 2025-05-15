@@ -42,7 +42,7 @@ axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-        console.log(originalRequest);
+        //console.log(originalRequest);
         if (error.response && error.response.status === 401 && !originalRequest._retry) {
             if (isRefreshing) {
                 return new Promise(function (resolve, reject) {
@@ -64,7 +64,7 @@ axiosInstance.interceptors.response.use(
                 const refreshToken = localStorage.getItem('refreshToken');
                 const accessToken = localStorage.getItem('authToken');
                 const response = await axios.post(`${baseURL}/Auth/refresh`, {accessToken, refreshToken });
-                console.log("Refresh Token : ",response);
+                //console.log("Refresh Token : ",response);
                 const newToken = response.data.token;
                 localStorage.setItem('authToken', newToken);
                 localStorage.setItem('refreshToken', response.data.refreshToken);

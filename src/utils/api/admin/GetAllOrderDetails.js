@@ -3,15 +3,18 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import axiosInstance from '../axiosInstance';
 
-const GetOrderDetails = async () => {
+const GetAllOrderDetails = async () => {
   try {
-    const response = await axiosInstance.get(`/Order/GetOrderDetails`);
+    const response = await axiosInstance.get(`/Admin/GetOrderDetails`);
     if (response) {
       //console.log(response)
       return response.data;
     }
-  } 
+  }
   catch (error) {
+    if (err.response.status == 401) {
+      return err.response.status;
+    }
     if (error.response.data) {
       //console.log(error.response)
       toast.error(error.response.data[0].message)
@@ -21,4 +24,4 @@ const GetOrderDetails = async () => {
   }
 }
 
-export default GetOrderDetails
+export default GetAllOrderDetails

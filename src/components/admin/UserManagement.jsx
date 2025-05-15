@@ -4,12 +4,14 @@ import { FaEye, FaTrash, FaCheckCircle, FaBan } from "react-icons/fa";
 import GetAllUsers from '../../utils/api/admin/GetAllUsers';
 import UpdateUserAccess from '../../utils/api/admin/UpdateUserAccess';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const UserManagement = () => {
 
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const loadUser = async () => {
     const result = await GetAllUsers();
@@ -23,7 +25,9 @@ const UserManagement = () => {
   const handleUserAccess = async (id) => {
     //console.log(id);
     const response = await UpdateUserAccess(id);
-    if(response){
+    if(response == 401){
+      navigate("/unauthorized");
+    }else{
       toast.success(response.message);
       loadUser();
     }

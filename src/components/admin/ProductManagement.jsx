@@ -4,6 +4,7 @@ import { MdAdd } from "react-icons/md";
 import Product from "../../utils/api/Product";
 import AddOrUpdateProduct from '../../utils/api/admin/AddOrUpdateProduct';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const ProductManagement = () => {
   const [products, setProducts] = useState([]);
@@ -22,6 +23,8 @@ const ProductManagement = () => {
     rating_rate: '',
     rating_count: ''
   });
+
+  const navigate = useNavigate();
 
   const loadProducts = async () => {
     const result = await Product();
@@ -86,7 +89,9 @@ const ProductManagement = () => {
     if (isEditing) {
       
       const result = await AddOrUpdateProduct({ productId: currentProductId, ...formData });
-      if (result) {
+      if (result == 401) {
+        navigate("/unauthorized");
+      } else{
         const updatedProducts = products.map(product =>
           product.productId === currentProductId
             ? { ...product, ...formData }

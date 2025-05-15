@@ -3,11 +3,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import axiosInstance from '../axiosInstance';
 
-const CancelOrder = async (orderId) => {
+const CancelOrder = async (orderId, orderItemId) => {
     try{
         const response = await axiosInstance.delete(`/order/CancelOrder`,{
             params:{
-                orderId
+                orderId,
+                orderItemId
             }
         })
         //console.log(response)
