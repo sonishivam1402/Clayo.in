@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import VerifyOtp from '../utils/api/VerifyOtp';
 import { toast } from 'react-toastify';
 import { IoMdArrowBack } from "react-icons/io";
+import VerifyEmail from '../utils/api/VerifyEmail';
 
 const OtpVerification = ({ user, onClose, onSuccess }) => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -81,11 +82,11 @@ const OtpVerification = ({ user, onClose, onSuccess }) => {
   };
 
   const handleResendCode = async () => {
-    // Here you would implement the logic to resend OTP
+    
     toast.info('Sending new verification code...');
     // Reset timer
     setTimer(300);
-    // Add your API call here to resend OTP
+    const result = await VerifyEmail(user.email);
   };
 
   return (
