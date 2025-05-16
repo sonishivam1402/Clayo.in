@@ -1,11 +1,11 @@
 import React from 'react'
-import axios from 'axios'
+import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const VerifyOtp = async (otp, email) => {
-   
+const VerifyEmail = async(email) => {
+    console.log(email);
     try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/User/VerifyUser`,{otp, email})
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/Auth/VerifyEmail`,{email})
         if(response){
             return response.data;
         }
@@ -17,4 +17,4 @@ const VerifyOtp = async (otp, email) => {
     }
 }
 
-export default VerifyOtp
+export default VerifyEmail

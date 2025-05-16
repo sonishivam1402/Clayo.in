@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import VerifyOtp from '../utils/api/VerifyOtp';
 import { toast } from 'react-toastify';
 import { IoMdArrowBack } from "react-icons/io";
 
-const OtpVerification = ({user, onClose}) => {
+const OtpVerification = ({ user, onClose, onSuccess }) => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timer, setTimer] = useState(300); // 5 minutes in seconds
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   // Timer countdown
   useEffect(() => {
@@ -27,7 +26,7 @@ const OtpVerification = ({user, onClose}) => {
   };
 
   const handleChange = (index, value) => {
-    //if (isNaN(value)) return; // Only numbers allowed
+
     let newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -49,60 +48,106 @@ const OtpVerification = ({user, onClose}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const enteredOtp = otp.join('');
-    const response = await VerifyOtp(enteredOtp, user.id);
-    if(response){
-      toast.success(response.message);
-      onClose();
-      navigate("/login");
+    setLoading(true);
+    
+    try {
+      const enteredOtp = otp.join('');
+      const response = await VerifyOtp(enteredOtp, user.email);
+      
+      console.log("OTP Response:", response);
+      
+      // If verification is successful
+      if (response) {
+        toast.success("Email verified successfully!");
+        
+        // Use the onSuccess callback if provided, otherwise fall back to onClose
+        if (typeof onSuccess === 'function') {
+          // Call onSuccess with a slight delay to ensure toast is visible
+          setTimeout(() => {
+            onSuccess();
+          }, 500);
+        } else {
+          onClose();
+        }
+      } else {
+        toast.error("Invalid verification code. Please try again.");
+      }
+    } catch (error) {
+      console.error("OTP Verification Error:", error);
+      toast.error("Verification failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
-    <div className="min-h-screen w-screen flex items-center justify-center bg-white-10 backdrop-blur-md px-6 py-12">
-      <IoMdArrowBack size={24} className='hidden absolute left-10 top-10 sm:block sm:hover:bg-amber-800 sm:rounded-2xl sm:hover:text-white sm:hover:cursor-pointer' onClick={() => { navigate(-1) }} />
-      <div className="bg-white shadow-lg rounded-2xl p-10 max-w-lg w-full">
-        <h3 className="text-1xl font-bold text-center text-amber-800 mb-4">Hey, {user.name} !!</h3>
-        <h1 className="text-3xl font-bold text-center text-amber-800 mb-4">Verify Your OTP</h1>
-        <p className="text-gray-600 text-center mb-6">
-          Enter the 6-digit code we sent to your email address
-        </p>
+  const handleResendCode = async () => {
+    // Here you would implement the logic to resend OTP
+    toast.info('Sending new verification code...');
+    // Reset timer
+    setTimer(300);
+    // Add your API call here to resend OTP
+  };
 
-        <div className="text-center mb-8">
-          <span className="text-sm text-gray-600">Time Remaining: </span>
-          <span className="font-semibold text-amber-800">{formatTimer()}</span>
+  return (
+    <div className="bg-white shadow-xl rounded-lg p-10 max-w-md w-full">
+      <div className="mb-8 text-center">
+        <h1 className="text-2xl font-light tracking-wider text-amber-900">VERIFY YOUR EMAIL</h1>
+        <div className="h-px w-16 bg-amber-700 mx-auto my-3"></div>
+        <p className="text-gray-600 mt-4">
+          We've sent a 6-digit verification code to
+        </p>
+        <p className="text-amber-900 font-medium">{user.email}</p>
+      </div>
+
+      <div className="text-center mb-8">
+        <span className="text-sm uppercase tracking-wider text-gray-500">Time Remaining: </span>
+        <span className="font-medium text-amber-800">{formatTimer()}</span>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="flex justify-center gap-3">
+          {otp.map((digit, index) => (
+            <input
+              key={index}
+              id={`otp-${index}`}
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength="1"
+              value={digit}
+              onChange={(e) => handleChange(index, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className="w-12 h-14 text-center text-xl border-b-2 border-amber-800/30 bg-transparent focus:outline-none focus:border-amber-600 transition-all"
+            />
+          ))}
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="flex justify-center gap-5">
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                id={`otp-${index}`}
-                type="text"
-                maxLength="1"
-                value={digit}
-                onChange={(e) => handleChange(index, e.target.value)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                className="w-16 h-16 text-center text-2xl border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-800 transition"
-              />
-            ))}
-          </div>
+        <button
+          type="submit"
+          disabled={loading || otp.join('').length !== 6}
+          className={`w-full bg-amber-800 text-white py-3 rounded text-sm uppercase tracking-wider font-light 
+            ${loading || otp.join('').length !== 6 ? 'opacity-70 cursor-not-allowed' : 'hover:bg-amber-900'} transition-all`}
+        >
+          {loading ? 'Verifying...' : 'Verify Email'}
+        </button>
+      </form>
 
-          <button
-            type="submit"
-            className="w-full bg-amber-800 text-white py-3 rounded-xl text-lg font-semibold hover:bg-amber-900 transition"
-          >
-            Verify OTP
-          </button>
-        </form>
-
-        <p className="text-sm text-gray-600 text-center mt-6">
-          Didn’t get the code?{' '}
-          <span className="text-amber-800 font-medium cursor-pointer hover:underline">
-            Resend Code
-          </span>
-        </p>
+      <div className="flex items-center justify-between mt-8">
+        <button 
+          onClick={onClose}
+          className="text-sm text-gray-500 hover:text-gray-700 transition-colors flex items-center gap-1"
+        >
+          <IoMdArrowBack size={14} /> Back
+        </button>
+        
+        <button 
+          onClick={handleResendCode}
+          disabled={timer > 270} // Disable resend for first 30 seconds
+          className={`text-sm text-amber-800 font-medium transition-colors
+            ${timer > 270 ? 'opacity-50 cursor-not-allowed' : 'hover:text-amber-900 hover:underline'}`}
+        >
+          Resend Code
+        </button>
       </div>
     </div>
   );

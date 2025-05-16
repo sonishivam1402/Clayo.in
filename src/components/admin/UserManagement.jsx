@@ -46,7 +46,6 @@ const UserManagement = () => {
               <th className="px-6 py-4">Contact No.</th>
               <th className="px-6 py-4">Address</th>
               <th className="px-6 py-4">Has Access</th>
-              <th className="px-6 py-4">Verified</th>
               <th className="px-6 py-4 text-center">Actions</th>
             </tr>
           </thead>
@@ -68,16 +67,7 @@ const UserManagement = () => {
                       {user.hasAccess ? "Yes" : "No"}
                     </span>
                   </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${user.isVerified
-                        ? 'bg-green-100 text-green-600'
-                        : 'bg-red-100 text-red-600'
-                        }`}
-                    >
-                      {user.isVerified ? "Yes" : "No"}
-                    </span>
-                  </td>
+                  
                   <td className="px-6 py-4 flex gap-3 justify-center">
                     {/* <button className="text-blue-600 hover:text-blue-800" title="View">
                       <FaEye className="w-5 h-5" />
