@@ -8,17 +8,20 @@ import { Link, useLocation } from 'react-router-dom';
 
 export const NavBar = () => {
     const [openCart, setOpenCart] = useState(false);
-    const [activeNav, setActiveNav] = useState(""); 
     const [menu, setMenu] = useState(false);
     const [username, setUserName] = useState("")
     const [userImage, setImage] = useState("")
-    const location = useLocation()
+    const location = useLocation();
+    
+    // Instead of managing activeNav as a state that's manually updated,
+    // derive it from the current path
+    const currentPath = location.pathname;
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user")) || {userName: "Guest", profileImage:"/avatar.jpg"};
         setUserName(user.userName);
         setImage(user.profileImage || "/avatar.jpg")
-      }, [location.pathname]);
+    }, [location.pathname]);
     
 
     const navItems = [
@@ -43,9 +46,9 @@ export const NavBar = () => {
                                 <Link
                                     to={n.href}
                                     key={i}
-                                    onClick={(() => setActiveNav(n.href),()=>setMenu(false))} 
+                                    onClick={() => setMenu(false)} 
                                 >
-                                    <li className={activeNav === n.href ? "text-amber-700 font-bold" : "hover:text-amber-700 hover:font-bold"}>
+                                    <li className={currentPath === n.href ? "text-amber-700 font-bold" : "hover:text-amber-700 hover:font-bold"}>
                                         {n.name}
                                     </li>
                                 </Link>
@@ -55,7 +58,7 @@ export const NavBar = () => {
                 )}
             </div>
             <div>
-               <Link to="/" onClick={()=>setActiveNav("")}> <span className='text-2xl font-bold text-amber-700 font-serif'>Clayo.</span></Link>
+               <Link to="/" onClick={()=>setMenu(false)}> <span className='text-2xl font-bold text-amber-700 font-serif'>Clayo.</span></Link>
             </div>
 
             <div className='hidden sm:flex sm:justify-between sm:items-center sm:gap-5'>
@@ -65,9 +68,8 @@ export const NavBar = () => {
                         <Link
                             to={n.href}
                             key={i}
-                            onClick={() => setActiveNav(n.href)} 
                         >
-                            <li className={activeNav === n.href ? "text-amber-700 font-bold" : "hover:text-amber-700 hover:font-bold"}>
+                            <li className={currentPath === n.href ? "text-amber-700 font-bold" : "hover:text-amber-700 hover:font-bold"}>
                                 {n.name}
                             </li>
                         </Link>
@@ -80,7 +82,6 @@ export const NavBar = () => {
                 <IoCartOutline
                     size={22}
                     className='hover:scale-120 hover:cursor-pointer'
-                    // onClick={() => setOpenCart(!openCart)}
                 />
                 </Link>
                 

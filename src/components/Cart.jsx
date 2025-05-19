@@ -141,7 +141,7 @@ export const Cart = () => {
                 </div>
             )}
 
-            <div className="min-h-screen bg-amber-50">
+            <div className="min-h-screen bg-gray-100">
                 <div className="w-screen mx-auto px-6 py-12">
                     <h1 className="text-3xl font-light tracking-wide text-amber-800 mb-8 text-center uppercase">Shopping Bag</h1>
 
@@ -185,7 +185,7 @@ export const Cart = () => {
                                                         >
                                                             -
                                                         </button>
-                                                        <span className="px-3 py-1 border-x border-amber-700">{item.quantity}</span>
+                                                        <span className="px-3 py-1 text-amber-800 border-x border-amber-700">{item.quantity}</span>
                                                         <button
                                                             className="px-3 py-1 text-amber-700"
                                                             onClick={() => handleQuantityChange(key, item.quantity + 1)}

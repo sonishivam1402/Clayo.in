@@ -142,7 +142,7 @@ export const ProductSection = ({ title, category }) => {
                 <div className="flex flex-col space-y-6">
                     {/* Header Section */}
                     <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
-                        <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-serif font-bold text-amber-900 tracking-tight">
                             {title}
                         </h1>
                         
@@ -151,13 +151,13 @@ export const ProductSection = ({ title, category }) => {
                             {/* Search Input */}
                             <div className="relative flex-grow max-w-md">
                                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <FaSearch size={18} className="text-gray-400" />
+                                    <FaSearch size={18} className="text-amber-500" />
                                 </div>
                                 <input
                                     type="text"
                                     value={searchText}
                                     placeholder="Search collection..."
-                                    className="pl-12 pr-4 py-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all font-light"
+                                    className="pl-12 pr-4 py-3 w-full border border-amber-300 rounded-md shadow-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all font-light"
                                     onChange={(e) => handleSearch(e.target.value)}
                                 />
                             </div>
