@@ -22,9 +22,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       
-      - name: Generate timestamp
+      - name: Generate IST timestamp
         id: timestamp
-        run: echo "IMAGE_TAG=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+        run: |
+          export TZ=Asia/Kolkata
+          echo "IMAGE_TAG=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
